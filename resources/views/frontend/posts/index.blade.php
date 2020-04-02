@@ -37,6 +37,10 @@
                                 <ul class="blog-info-link">
                                     <li><a href="#"><i class="fa fa-user"></i> {{ $post->admin->name }}</a></li>
                                 </ul>
+
+                                <ul class="blog-info-link">
+                                    <li><a href="#"><i class="fa fa-clock-o"></i> {{ $post->readTime }}</a></li>
+                                </ul>
                             </div>
                         </article>
 

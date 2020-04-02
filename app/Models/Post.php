@@ -19,6 +19,10 @@ class Post extends Model
     }
 
 
+    public function getReadTimeAttribute()
+    {
+        return get_reading_time($this->body);
+    }
 
     public function getImagePathAttribute()
     {

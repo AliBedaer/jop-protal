@@ -207,15 +207,35 @@ if ( !function_exists('check_file') )
 
 
 
+if ( !function_exists('get_reading_time') )
+{
+ /**
+ * Returns an estimated reading time in a string
+ * @param  string $content the content to be read
+ * @return string estimated read time 
+ */
+function get_reading_time($content) 
+{
+    $word_count = str_word_count(strip_tags($content));
+
+    $minutes = floor($word_count / 200);
+
+
+    if ($minutes == 0) {
+
+        return "1 minute";
+    }
+    else {
+
+        return "{$minutes} minutes";
+    }
+}
+}
+
+
+
 
 
 
 
 /*** helpers functions ***/
-
-
-
-
-
-
-
