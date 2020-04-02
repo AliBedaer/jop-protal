@@ -2,12 +2,10 @@
 
 namespace App\Services;
 
-use App\Mail\CancelApplier;
+use App\Jobs\CanceldEmails;
 use App\Models\CompanyProfile;
 use App\Models\SeekerProfile;
-use Illuminate\Support\Facades\Mail;
 use Storage;
-use Toastr;
 
 class UserService 
 {
@@ -135,9 +133,11 @@ class UserService
     * @param \App\Models\User $company
     * @return void
     **/
-    public function handleCancelApplicant($job,$seeker,$company)
+    public function handleCancelApplicant($listing,$seeker,$company)
     {
-    	$job->applicants()->detach($seeker->id);
-        Mail::to($seeker->email)->send(new CancelApplier($seeker,$company,$job));
+    	$listing->applicants()->detach($seeker->id);
+
+        dispatch(new CanceldEmails($seeker,$company,$listing));
+
     }
 }

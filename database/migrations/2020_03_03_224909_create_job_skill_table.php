@@ -21,7 +21,7 @@ class CreateJobSkillTable extends Migration
 
             /* Foreign Keys */
 
-            $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade');
+            $table->foreign('job_id')->references('id')->on('jobs_listings')->onDelete('cascade');
             $table->foreign('skill_id')->references('id')->on('skills')->onDelete('cascade');
 
         });

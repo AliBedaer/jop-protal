@@ -8,6 +8,8 @@ use Storage;
 class Job extends Model
 {
 
+    protected $table = 'jobs_listings';
+
     protected $fillable = [
     	'title',
         'slug',

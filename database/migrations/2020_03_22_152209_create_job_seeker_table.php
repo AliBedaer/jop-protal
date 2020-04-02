@@ -27,7 +27,7 @@ class CreateJobSeekerTable extends Migration
 
             $table->foreign('job_id')
                   ->references('id')
-                  ->on('jobs')
+                  ->on('jobs_listings')
                   ->onDelete('cascade');
                   
 
