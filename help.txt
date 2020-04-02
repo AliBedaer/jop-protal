@@ -41,3 +41,14 @@
                # show posts   
 
 
+## Site Features  ##
+
+# Login & register
+# contact with admin 
+# filters by ( tags , titles , Others )
+# upload cv 
+# and other
+
+
+
+
