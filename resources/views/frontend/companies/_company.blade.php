@@ -3,7 +3,7 @@
                      <div class="thumb">
                           <img class="img-fluid" src="{{ $company->imagePath }}" alt="">
                         </div>
-                        <a href="jobs.html"><h3>{{ $company->name }}</h3></a>
+                        <a href="{{ $company->companyShow }}"><h3>{{ $company->name }}</h3></a>
                         <p> <span>{{ $company->jobs_count }}</span> Available position</p>
                     </div>
                 </div>

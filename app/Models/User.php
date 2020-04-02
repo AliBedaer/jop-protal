@@ -112,6 +112,17 @@ class User extends Authenticatable
         return $this->morphTo();
     }
 
+    public function getSeekerShowAttribute()
+    {
+        return route('seekers.show',['id' => $this->id,'slug' => str_slug($this->name)]);
+    }
+
+
+    public function getCompanyShowAttribute()
+    {
+        return route('companies.show',['id' => $this->id,'slug' => str_slug($this->name)]);
+    }
+
     /**
     * Check profile type of user instance 
     * @return bool
@@ -141,6 +152,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Job::class)
                 ->with('type:id,name','country:id,name')
+                ->withCount('applicants')
                 ->latest();
     }
 
@@ -171,8 +183,7 @@ class User extends Authenticatable
 
     public function savedJobs()
     {
-        return $this->belongsToMany(Job::class,'job_seeker')
-                    ->with('seekers');
+        return $this->belongsToMany(Job::class,'job_seeker');
     }
 
     /**

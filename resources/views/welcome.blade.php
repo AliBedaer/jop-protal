@@ -163,7 +163,7 @@
                             <div class="thumb">
                                 <img class="img-fluid" src="{{ $seeker->imagePath }}" alt="">
                             </div>
-                            <a href="{{ route('seekers.show',['id' => $seeker->id,'slug' => str_slug($seeker->name)]) }}"><h4>{{ $seeker->name }}</h4></a>
+                            <a href="{{ $seeker->seekerShow }}"><h4>{{ $seeker->name }}</h4></a>
                             <p>{{ $seeker->profile->position }}</p>
                         </div>
                         @endforeach
@@ -195,7 +195,7 @@
                         <div class="thumb">
                             <img class="img-fluid" src="{{ $company->imagePath }}" alt="">
                         </div>
-                        <a href="jobs.html"><h3>{{ $company->name }}</h3></a>
+                        <a href="{{ $company->companyShow }}"><h3>{{ $company->name }}</h3></a>
                         <p> <span>{{ $company->jobs_count }}</span> Available position</p>
                     </div>
                 </div>
@@ -212,14 +212,14 @@
                     <div class="searching_text">
                         <h3>Looking for a Job?</h3>
                         <p>We provide online instant cash loans with quick approval </p>
-                        <a href="#" class="boxed-btn3">Browse Job</a>
+                        <a href="{{ route('jobs.index') }}" class="boxed-btn3">Browse Job</a>
                     </div>
                 </div>
                 <div class="col-lg-5 offset-lg-1 col-md-6">
                     <div class="searching_text">
                         <h3>Looking for a Expert?</h3>
                         <p>We provide online instant cash loans with quick approval </p>
-                        <a href="#" class="boxed-btn3">Post a Job</a>
+                        <a href="{{ route('jobs.create') }}" class="boxed-btn3">Post a Job</a>
                     </div>
                 </div>
             </div>

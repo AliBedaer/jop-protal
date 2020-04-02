@@ -12,7 +12,7 @@ class CompanyController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['auth','role:company'])->except(['index']);
+        $this->middleware(['auth','role:company'])->except(['index','show']);
     }
 
 	public function index()
@@ -21,6 +21,13 @@ class CompanyController extends Controller
     	return view('frontend.companies.index',compact('companies'));
 
 	} // end of index fn 
+
+
+    public function show($id,$slug)
+    {
+        $company = User::findOrFail($id);
+        return view('frontend.companies.show',compact('company'));
+    }
     
     public function jobs()
     {

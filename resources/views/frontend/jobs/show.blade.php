@@ -44,6 +44,10 @@
                                 <a data-url="{{ route('jobs.show',$job->slug) }}"
                                     class="heart_mark {{ auth()->user()->hasSavedJob($job) ? 'bg-green' : '' }}"
                                     href="{{ route('jobs.save',$job->slug) }}"> <i class="ti-heart"></i> </a>
+
+                                    <a data-url="{{ route('jobs.apply',$job->slug) }}" href="{{ route('jobs.apply',$job->slug) }}" class="boxed-btn3 apply_job {{ auth()->user()->hasAppliedJob($job) ? 'bg-blue' :''  }}">
+                                                {{ auth()->user()->hasAppliedJob($job) ? 'Applied' : 'Apply Now' }}
+                                            </a>
                                     
                                 @endrole
                                 @hasRoleAndOwns('company',$job)

@@ -1,8 +1,8 @@
 <!-- Single Job -->
-             <div class="col-lg-12 col-md-12">
-                                <div class="single_jobs white-bg d-flex justify-content-between">
-                                    <div class="jobs_left d-flex align-items-center">
-                                        <div class="thumb">
+            <div class="col-lg-12 col-md-12">
+                        <div class="single_jobs white-bg d-flex justify-content-between">
+                                 <div class="jobs_left d-flex align-items-center">
+                                      <div class="thumb">
                                             <img class="img-fluid" src="{{ $job->imagepath }}" alt="">
                                         </div>
                                         <div class="jobs_conetent">

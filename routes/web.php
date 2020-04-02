@@ -35,6 +35,7 @@ Route::group(
             Route::get('seekers','SeekerController@index')->name('seekers.index');
             Route::get('companies','CompanyController@index')->name('companies.index');
             Route::get('seekers/{id}/{slug}','SeekerController@show')->name('seekers.show');
+            Route::get('companies/{id}/{slug}','CompanyController@show')->name('companies.show');
             Route::get('company/jobs','CompanyController@jobs')->name('company.jobs');
             Route::get('company/notifications','CompanyController@notifications')->name('company.notifications');
 
@@ -44,7 +45,7 @@ Route::group(
            
         // Tags Routes
 
-            Route::get('tags/{slug}','TagController@show')->name('tags.show');
+            Route::get('jobs/tags/{slug}','TagController@show')->name('tags.show');
 
         // Tags Routes
 
