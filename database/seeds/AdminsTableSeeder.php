@@ -15,7 +15,7 @@ class AdminsTableSeeder extends Seeder
         	'name' => 'Ahmed Elesnawy',
         	'email' => 'ahmed@gmail.com',
             'position' => 'Back-end Developer',
-        	'password' => bcrypt('a5060180')
+        	'password' => 'a5060180'
         ]);
     }
 }

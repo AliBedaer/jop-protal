@@ -35,6 +35,7 @@
                     <th>Email</th>
                     <th>Subject</th>
                     <th>Message</th>
+                    <th>Replied</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
@@ -46,19 +47,23 @@
                     <td>{{ $contact->name }}</td>
                     <td>{{ $contact->email }}</td>
                     <td>{{ $contact->subject }}</td>
-                    <td>{{ $contact->message }}</td>
+                    <td>{{ $contact->limitMessage }}</td>
                     <td>
-                      <a href="#" class="text-center">
+                      {{ is_null($contact->replied_at) ? 'No' : 'Yes' }}
+                    </td>
+                    <td>
+                      <a href="{{ route('dashboard.contacts.show',$contact->id) }}" class="text-center">
                         <i class="fa fa-eye fa-2x"></i>
                       </a>
 
-                      <a href="#" class="text-center text-warning mx-2">
-                        <i class="fa fa-reply fa-2x"></i>
-                      </a>
 
-                      <a href="#" class="text-center text-danger">
+                      {!! Form::open(['route' => ['dashboard.contacts.destroy',$contact->id],'class' => 'd-inline-block']) !!}
+                      @method('DELETE')
+                      
+                      <a href="#" class="text-center text-danger confirm">
                         <i class="fa fa-trash fa-2x"></i>
                       </a>
+                      {!! Form::close() !!}
                     </td>
                   </tr>
                   @empty
@@ -78,3 +83,36 @@
 
 
 @endsection
+
+
+
+@push('js')
+
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+<script type="text/javascript">
+  $('.confirm').click(function(e){
+
+    e.preventDefault();
+
+                swal({
+  title: "Are you sure?",
+  text: "Once deleted, you will not be able to recover this imaginary file!",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+})
+.then((willDelete) => {
+  if (willDelete) {
+
+     $(this).closest('form').submit();        
+
+  } else {
+    swal("Your imaginary file is safe!");
+  }
+});
+            });
+</script>
+
+@endpush

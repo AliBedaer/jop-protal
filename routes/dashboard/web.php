@@ -98,6 +98,9 @@ Route::group(
                 // Contacts Routes 
 
                 Route::get('contacts','ContactController@index')->name('contacts.index');
+                Route::get('contacts/{contact}','ContactController@show')->name('contacts.show');
+                Route::post('contacts/{contact}/reply','ContactController@reply')->name('contacts.reply');
+                Route::delete('contacts/{contact}','ContactController@destroy')->name('contacts.destroy');
 
                 // Read notification Route
 

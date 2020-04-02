@@ -31,7 +31,7 @@ class JobsDataTable extends DataTable
     
     public function query()
     {
-        return Job::query()->with('type','category','country','user')->select('jobs.*');
+        return Job::query()->with('type','category','country','user')->select('jobs_listings.*');
     }
 
 
