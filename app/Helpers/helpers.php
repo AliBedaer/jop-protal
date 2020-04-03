@@ -235,6 +235,52 @@ function get_reading_time($content)
 
 
 
+if ( !function_exists('draw_chart') )
+{
+	function draw_chart($chartClass,$labels=[],$data=[],$type='bar',$title='Char Title')
+	{
+		$chart = new $chartClass;
+
+		$chart->labels($labels);
+
+		$dataset = $chart->dataset($title,$type,$data)->options([
+
+			'fill' => 'true',
+            'borderColor' => '#51C1C0',
+
+		]);
+
+		if ( $type !== 'bar' and $type !== 'line' )
+		{
+			$dataset->backgroundColor(collect(['#46BFBD','#F7464A','#FDB45C']));
+		}
+
+
+		return $chart;
+	}
+}
+
+
+
+
+if ( !function_exists('get_months') )
+{
+	function get_months()
+	{
+		$monthsNums  = collect(range(1,12));
+        $monthsNames = collect(["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug", "Sep", "Oct", "Nov", "Dec"]);
+        $months = $monthsNums->combine($monthsNames); 
+
+		return $months;
+	}
+}
+
+
+
+
+
+
+
 
 
 

@@ -50,12 +50,11 @@ class User extends Authenticatable
     * @param mixed $query
     * @param int $limit --> related to paginataion
     **/
-    public function scopeCompanies($query,$limit=12)
+    public function scopeCompanies($query)
     {
         return $query->whereRoleIs('company')
                      ->withCount('jobs')
-                     ->latest()
-                     ->paginate($limit);
+                     ->latest();
     }
 
 
@@ -64,12 +63,11 @@ class User extends Authenticatable
     * @param mixed $query
     * @param int $limit --> related to paginataion
     **/
-    public function scopeSeekers($query,$limit=12)
+    public function scopeSeekers($query)
     {
         return $query->whereRoleIs('seeker')
                      ->withCount('jobs')
-                     ->latest()
-                     ->paginate($limit);
+                     ->latest();
     }
 
 

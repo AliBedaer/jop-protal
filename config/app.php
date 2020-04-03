@@ -198,6 +198,12 @@ return [
 
         Jorenvh\Share\Providers\ShareServiceProvider::class,
 
+        // Consoletvs Charts
+
+
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
+
+
 
 
 
@@ -272,6 +278,10 @@ return [
         // Laravel Sharer
 
         'Share' => Jorenvh\Share\ShareFacade::class,
+
+
+        'Charts' => ConsoleTVs\Charts\Charts::class,
+
 
 
     ],

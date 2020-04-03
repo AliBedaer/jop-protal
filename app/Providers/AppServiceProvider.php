@@ -43,6 +43,10 @@ class AppServiceProvider extends ServiceProvider
         View::share('types',\App\Models\Type::withCount('jobs')->get());
         View::share('tags',\App\Models\Tag::withCount('jobs')->get());
         View::share('skills',\App\Models\Skill::withCount('jobs')->get());
+        View::share('admins_count',\App\Models\Admin::all()->count());
+        View::share('seekers_count',\App\Models\User::seekers()->count());
+        View::share('companies_count',\App\Models\User::companies()->count());
+        View::share('countries_count',\App\Models\Country::all()->count());
 
 
     }

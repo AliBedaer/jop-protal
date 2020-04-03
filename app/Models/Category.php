@@ -41,8 +41,8 @@ class Category extends Model
    public function jobs()
    {
    	 return $this->hasMany(Job::class)
-            ->with('type:id,name','country:id,name')
-            ->latest();
+            ->with('type:id,name','country:id,name');
+            
    }
 
 

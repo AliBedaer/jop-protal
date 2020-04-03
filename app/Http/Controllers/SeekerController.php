@@ -9,7 +9,7 @@ class SeekerController extends Controller
 {
     public function index()
     {
-    	$seekers = User::seekers();
+    	$seekers = User::seekers()->paginate(10);
     	return view('frontend.seekers.index',compact('seekers'));
     }
 
