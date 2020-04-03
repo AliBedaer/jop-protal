@@ -17,7 +17,7 @@ class CompanyController extends Controller
 
 	public function index()
 	{
-		$companies = User::companies();
+		$companies = User::companies()->paginate(10);
     	return view('frontend.companies.index',compact('companies'));
 
 	} // end of index fn 
