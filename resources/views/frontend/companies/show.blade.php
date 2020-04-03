@@ -26,7 +26,8 @@
                                 </a>
                                 <div class="links_locat d-flex align-items-center">
                                     <div class="location">
-                                        <p> <i class="fa fa-map-marker"></i> {{ $company->profile->specialized_in }} </p>
+                                        <p> <i class="fa fa-map-marker"></i> {{ $company->profile->specialized_in }}
+                                        </p>
                                     </div>
 
                                 </div>
@@ -37,7 +38,7 @@
                 </div>
                 <div class="descript_wrap white-bg">
                     <div class="single_wrap">
-    
+
                     </div>
                 </div>
 
@@ -48,7 +49,7 @@
                     <h2 class="text-center p-2">Jobs</h2>
                     <table class="table table-borderd">
                         <thead>
-                             <tr>
+                            <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Title</th>
                                 <th scope="col">Applicants</th>
@@ -59,17 +60,17 @@
 
                         <tbody>
 
-                        <tr>
+                            <tr>
 
-                            <th scope="row">{{ $job->id }}</th>
-                            <td><a href="{{ $job->showUrl }}">{{ $job->title }}</a></td>
-                            <td>
-                               {{ $job->applicants_count }}
-                            </td>
+                                <th scope="row">{{ $job->id }}</th>
+                                <td><a href="{{ $job->showUrl }}">{{ $job->title }}</a></td>
+                                <td>
+                                    {{ $job->applicants_count }}
+                                </td>
 
-                        </tr>
+                            </tr>
 
-                    </tbody>
+                        </tbody>
 
                         @endforeach
 
@@ -102,7 +103,7 @@
 
 
 
-               
+
 
 
 

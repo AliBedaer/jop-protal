@@ -2,12 +2,12 @@
 
 # hi {{ $seeker['name'] }}
 
-## we are {{ $company['name'] }} Company 
+## we are {{ $company['name'] }} Company
 
 Sorry We decide to reomve you from our job {{ $job['title'] }}
 
 @component('mail::button', ['url' => $job['showUrl']])
-Job Url 
+Job Url
 @endcomponent
 
 Thanks,<br>

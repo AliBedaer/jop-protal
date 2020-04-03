@@ -45,22 +45,25 @@
                                     class="heart_mark {{ auth()->user()->hasSavedJob($job) ? 'bg-green' : '' }}"
                                     href="{{ route('jobs.save',$job->slug) }}"> <i class="ti-heart"></i> </a>
 
-                                    <a data-url="{{ route('jobs.apply',$job->slug) }}" href="{{ route('jobs.apply',$job->slug) }}" class="boxed-btn3 apply_job {{ auth()->user()->hasAppliedJob($job) ? 'bg-blue' :''  }}">
-                                                {{ auth()->user()->hasAppliedJob($job) ? 'Applied' : 'Apply Now' }}
-                                            </a>
-                                    
+                                <a data-url="{{ route('jobs.apply',$job->slug) }}"
+                                    href="{{ route('jobs.apply',$job->slug) }}"
+                                    class="boxed-btn3 apply_job {{ auth()->user()->hasAppliedJob($job) ? 'bg-blue' :''  }}">
+                                    {{ auth()->user()->hasAppliedJob($job) ? 'Applied' : 'Apply Now' }}
+                                </a>
+
                                 @endrole
                                 @hasRoleAndOwns('company',$job)
                                 <a href="{{ route('jobs.edit',$job->id) }}" class="btn">
                                     <i class="fa fa-edit fa-2x text-primary"></i>
                                 </a>
-                                <form class="d-inline-block" method="POST" action="{{ route('jobs.destroy',$job->id) }}">
-                                                @method('DELETE')
-                                                @csrf
-                                            <a class="btn confirm">
-                                                <i class="fa fa-trash fa-2x text-danger"></i>
-                                            </a>
-                                           </form>
+                                <form class="d-inline-block" method="POST"
+                                    action="{{ route('jobs.destroy',$job->id) }}">
+                                    @method('DELETE')
+                                    @csrf
+                                    <a class="btn confirm">
+                                        <i class="fa fa-trash fa-2x text-danger"></i>
+                                    </a>
+                                </form>
                                 @endOwns
 
                             </div>
@@ -79,7 +82,7 @@
                     <h2 class="text-center p-2">Applicants</h2>
                     <table class="table table-borderd">
                         <thead>
-                             <tr>
+                            <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Seeker</th>
                                 <th scope="col">Action</th>
@@ -90,20 +93,22 @@
 
                         <tbody>
 
-                        <tr>
+                            <tr>
 
-                            <th scope="row">{{ $seeker->id }}</th>
-                            <td><a href="#">{{ $seeker->name }}</a></td>
-                            <td>
-                               <a data-url="{{ route('companies.cancel',['job' => $job->id,'seeker' => $seeker->id,'company' => $job->user->id]) }}" href="{{ route('companies.cancel',['job' => $job->id,'seeker' => $seeker->id,'company' => $job->user->id]) }}" class="btn btn-danger text-white cancel">
-                                   <i class="fa fa-trash"></i>
-                                   Cancel
-                               </a>
-                            </td>
+                                <th scope="row">{{ $seeker->id }}</th>
+                                <td><a href="#">{{ $seeker->name }}</a></td>
+                                <td>
+                                    <a data-url="{{ route('companies.cancel',['job' => $job->id,'seeker' => $seeker->id,'company' => $job->user->id]) }}"
+                                        href="{{ route('companies.cancel',['job' => $job->id,'seeker' => $seeker->id,'company' => $job->user->id]) }}"
+                                        class="btn btn-danger text-white cancel">
+                                        <i class="fa fa-trash"></i>
+                                        Cancel
+                                    </a>
+                                </td>
 
-                        </tr>
+                            </tr>
 
-                    </tbody>
+                        </tbody>
 
                         @endforeach
 
@@ -184,7 +189,7 @@
                     </div>
                 </div>
 
-                
+
 
                 <div class="share_wrap d-flex">
                     <span>Share:</span>

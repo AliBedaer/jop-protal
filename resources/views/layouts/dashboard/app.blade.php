@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
-  <head>
-    <meta name="description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
+
+<head>
+    <meta name="description"
+        content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
     <!-- Twitter meta-->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:site" content="@pratikborsadiya">
@@ -12,7 +14,8 @@
     <meta property="og:title" content="Vali - Free Bootstrap 4 admin theme">
     <meta property="og:url" content="http://pratikborsadiya.in/blog/vali-admin">
     <meta property="og:image" content="http://pratikborsadiya.in/blog/vali-admin/hero-social.png">
-    <meta property="og:description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
+    <meta property="og:description"
+        content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
     <title> {{ trans('dashboard.adminpanel') }} | @yield('title') </title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,12 +23,14 @@
     <!-- Main CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('dashboard') }}/css/main.css">
     <!-- Font-icon css-->
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Toastr -->
     <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
     @stack('css')
-  </head>
-  <body class="app sidebar-mini">
+</head>
+
+<body class="app sidebar-mini">
     <!-- Navbar-->
     @include('dashboard.includes._header')
 
@@ -35,7 +40,7 @@
     <!-- Main Content -->
 
     <main class="app-content">
-      @yield('content')
+        @yield('content')
     </main>
 
 
@@ -51,39 +56,43 @@
 
     <!-- Google analytics script-->
     <script type="text/javascript">
-      if(document.location.hostname == 'pratikborsadiya.in') {
-      	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-      	ga('create', 'UA-72504830-1', 'auto');
-      	ga('send', 'pageview');
-      }
+    if (document.location.hostname == 'pratikborsadiya.in') {
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-72504830-1', 'auto');
+        ga('send', 'pageview');
+    }
     </script>
 
     <!-- Toastr -->
-     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-     {!! Toastr::render() !!}
-     <script>
-
-      
-
-       $(function(){
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    {!! Toastr::render() !!}
+    <script>
+    $(function() {
 
         // Check all in datatables
 
-        $('#check_all').click(function(){
+        $('#check_all').click(function() {
 
-          $('input:checkbox').not(this).prop('checked', this.checked);
+            $('input:checkbox').not(this).prop('checked', this.checked);
 
         });
 
-       });
+    });
 
-       // Destroy All function 
+    // Destroy All function 
 
 
-        function deleteAll() {
+    function deleteAll() {
 
         $(document).on('click', '.destroy', function() {
             $('#form_data').submit();
@@ -103,27 +112,26 @@
                 $('.record_count').text("");
                 $('.empty_records').removeClass('d-none');
             }
-            
+
             $('#multi_del').modal().show();
         })
     }
 
     // Read admin notification 
 
-     $('#noty').click(function(e){
+    $('#noty').click(function(e) {
 
-      e.preventDefault();
+        e.preventDefault();
 
-      var url = $(this).data('url');
+        var url = $(this).data('url');
 
-      $.ajax({
-        url:url,
-      });
+        $.ajax({
+            url: url,
+        });
 
-     })
-
-
-     </script>
+    })
+    </script>
     @stack('js')
-  </body>
+</body>
+
 </html>

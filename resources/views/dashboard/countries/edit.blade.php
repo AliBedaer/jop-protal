@@ -7,24 +7,24 @@
 
 
 @section('content')
-    <div class="app-title">
-        <div>
-          <h1><i class="fa fa-home"></i> {{ $title }}</h1>
-        </div>
-        <ul class="app-breadcrumb breadcrumb">
-          <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-          <li class="breadcrumb-item"><i class="fa fa-users fa-lg"></i></li>
-          <li class="breadcrumb-item"><a href="{{ aurl("") }}"> {{ $title }}</a></li>
-        </ul>
+<div class="app-title">
+    <div>
+        <h1><i class="fa fa-home"></i> {{ $title }}</h1>
     </div>
+    <ul class="app-breadcrumb breadcrumb">
+        <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+        <li class="breadcrumb-item"><i class="fa fa-users fa-lg"></i></li>
+        <li class="breadcrumb-item"><a href="{{ aurl("") }}"> {{ $title }}</a></li>
+    </ul>
+</div>
 
-    <!-- Form Section -->
+<!-- Form Section -->
 
-    <div class="row">
+<div class="row">
 
-        <div class="col-md-7 mx-auto">
+    <div class="col-md-7 mx-auto">
 
-          <div class="tile">
+        <div class="tile">
 
             <h3 class="tile-title">{{ $title }}</h3>
 
@@ -35,52 +35,39 @@
 
             <div class="tile-body">
 
-           
-              {!! Form::open(['route' => ['dashboard.countries.update',$country->id],'files' => true]) !!}
 
-               @method('PUT')
+                {!! Form::open(['route' => ['dashboard.countries.update',$country->id],'files' => true]) !!}
+
+                @method('PUT')
 
 
                 <div class="form-group">
-                  {{ Form::text('name',$country->name,['placeholder' => trans('dashboard.name'),'class'=> 'form-control','autocomplete' => 'off']) }}
+                    {{ Form::text('name',$country->name,['placeholder' => trans('dashboard.name'),'class'=> 'form-control','autocomplete' => 'off']) }}
                 </div>
 
 
                 <div class="form-group">
-                  {{ Form::text('slug',$country->slug,['placeholder' => trans('dashboard.name'),'class'=> 'form-control','disabled' => 'disabled','autocomplete' => 'off']) }}
+                    {{ Form::text('slug',$country->slug,['placeholder' => trans('dashboard.name'),'class'=> 'form-control','disabled' => 'disabled','autocomplete' => 'off']) }}
                 </div>
-              
-           
+
+
 
                 <div class="tile-footer">
-                    <button class="btn btn-primary" country="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>{{ trans('dashboard.update') }}</button>&nbsp;&nbsp;&nbsp;
-                    <a class="btn btn-secondary" href="{{ route('dashboard.countries.index') }}"><i class="fa fa-fw fa-lg fa-times-circle"></i>{{ trans('dashboard.cancel') }}</a>
-               </div>
+                    <button class="btn btn-primary" country="submit"><i
+                            class="fa fa-fw fa-lg fa-check-circle"></i>{{ trans('dashboard.update') }}</button>&nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-secondary" href="{{ route('dashboard.countries.index') }}"><i
+                            class="fa fa-fw fa-lg fa-times-circle"></i>{{ trans('dashboard.cancel') }}</a>
+                </div>
 
-                
-              {!! Form::close() !!}
+
+                {!! Form::close() !!}
 
             </div>
 
-          </div>
-
         </div>
 
-      </div>
+    </div>
+
+</div>
 
 @endsection
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

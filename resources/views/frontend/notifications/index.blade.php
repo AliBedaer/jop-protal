@@ -11,15 +11,15 @@
 
 
 <div class="Notitfications p-5 text-center">
-    
+
 
     @forelse(auth()->user()->unreadNotifications as $not)
 
-        <p> <b>{{ $not->data['seeker_name'] }}</b> apply on You Job <b>{{ $not->data['job_title'] }}</b> </p>
+    <p> <b>{{ $not->data['seeker_name'] }}</b> apply on You Job <b>{{ $not->data['job_title'] }}</b> </p>
 
-    @empty 
+    @empty
 
-     <p>No New Notifications</p>
+    <p>No New Notifications</p>
 
     @endforelse
 

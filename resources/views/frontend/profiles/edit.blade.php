@@ -56,14 +56,14 @@ $seekerFields = ['fullname','mobile','position'];
                         </div>
                         @endforeach
 
-                         <div class="form-group m-3">
+                        <div class="form-group m-3">
                             <label class="control-label">Image</label>
                             <input id="image-input" name="image" class="form-control" type="file">
-                       </div>
+                        </div>
 
                         <div class="form-group m-3">
 
-                          <img id="image-file" class="img-fluid" src="{{ $user->imagepath }}"/>
+                            <img id="image-file" class="img-fluid" src="{{ $user->imagepath }}" />
 
                         </div>
 
@@ -85,7 +85,7 @@ $seekerFields = ['fullname','mobile','position'];
 
                         @endforeach
 
-                       
+
 
                         <div class="from-group m-3">
                             {!! Form::textarea('experience',$user->profile->experience,['id' => 'textarea']) !!}
@@ -98,7 +98,8 @@ $seekerFields = ['fullname','mobile','position'];
 
                         @if ( $user->profile->cv )
                         <div class="form-group m-3">
-                            <a href="{{ Storage::url($user->profile->cv) }}" download class="btn btn-success text-white">
+                            <a href="{{ Storage::url($user->profile->cv) }}" download
+                                class="btn btn-success text-white">
                                 Download Old Cv
                             </a>
                         </div>
@@ -109,31 +110,31 @@ $seekerFields = ['fullname','mobile','position'];
 
                         @if( $user->hasCompanyProfile )
 
-                         <div class="form-group m-3">
-                             @php
-                              $sizes = [
-                                'small'  => 'Small',
-                                'medium' => 'Medium',
-                                'large'  => 'Large' 
-                              ];
-                             @endphp
-                             {!! Form::label('Company Size') !!}
-                             {!! Form::select('size',$sizes,$user->profile->size,
-                                ['class' => 'wide mb-3']
-                             ) !!}
-                         </div>
+                        <div class="form-group m-3">
+                            @php
+                            $sizes = [
+                            'small' => 'Small',
+                            'medium' => 'Medium',
+                            'large' => 'Large'
+                            ];
+                            @endphp
+                            {!! Form::label('Company Size') !!}
+                            {!! Form::select('size',$sizes,$user->profile->size,
+                            ['class' => 'wide mb-3']
+                            ) !!}
+                        </div>
 
-                         <div class="form-group m-3">
-                             {!! Form::text('specialized_in',$user->profile->specialized_in,
-                                ['class' => 'form-control','placeholder' => 'specialized in']
-                             ) !!}
-                         </div>
+                        <div class="form-group m-3">
+                            {!! Form::text('specialized_in',$user->profile->specialized_in,
+                            ['class' => 'form-control','placeholder' => 'specialized in']
+                            ) !!}
+                        </div>
 
-                         <div class="form-group m-3">
-                             {!! Form::text('phone',$user->profile->phone,
-                                ['class' => 'form-control','placeholder' => 'Phone']
-                             ) !!}
-                         </div>
+                        <div class="form-group m-3">
+                            {!! Form::text('phone',$user->profile->phone,
+                            ['class' => 'form-control','placeholder' => 'Phone']
+                            ) !!}
+                        </div>
 
                         @endif
 
@@ -197,34 +198,27 @@ CKEDITOR.replace('textarea');
 
 
 <script type="text/javascript">
+// Jquery image previw
 
-  // Jquery image previw
+function readURL(input) {
 
-  function readURL(input) {
-
-      if (input.files && input.files[0]) {
+    if (input.files && input.files[0]) {
         var reader = new FileReader();
-        
+
         reader.onload = function(e) {
-          $('#image-file').attr('src', e.target.result);
+            $('#image-file').attr('src', e.target.result);
         }
-        
+
         reader.readAsDataURL(input.files[0]);
-      }
+    }
 
- }
+}
 
-    $("#image-input").change(function() {
+$("#image-input").change(function() {
 
-      readURL(this);
+    readURL(this);
 
-    });
-
+});
 </script>
 
 @endpush
-
-
-
-
-

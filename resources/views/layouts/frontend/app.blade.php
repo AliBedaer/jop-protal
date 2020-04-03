@@ -11,7 +11,7 @@
     <!-- <link rel="manifest" href="site.webmanifest"> -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('frontend') }}/img/favicon.png">
     <!-- Place favicon.ico in the root directory -->
-{{ asset('frontend') }}/
+    {{ asset('frontend') }}/
     <!-- CSS here -->
     <link rel="stylesheet" href="{{ asset('frontend') }}/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ asset('frontend') }}/css/owl.carousel.min.css">
@@ -31,26 +31,24 @@
     <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
 
     <style type="text/css">
+    .bg-green {
+        background: #00D363 !important;
+        color: #FFF !important;
+    }
 
-        .bg-green {
-            background: #00D363 !important;
-            color:#FFF !important;
-        }
+    .bg-green:hover {
+        color: #FFF !important;
+    }
 
-        .bg-green:hover{
-            color:#FFF !important;
-        }
+    .bg-blue {
+        background: #1488EF !important;
+        color: #FFF !important;
+    }
 
-        .bg-blue{
-            background: #1488EF !important;
-            color:#FFF !important;
-        }
-
-        .bg-blue:hover{
-            color:#FFF !important;
-            border-color:#1488EF !important; 
-        }
-
+    .bg-blue:hover {
+        color: #FFF !important;
+        border-color: #1488EF !important;
+    }
     </style>
 
     @stack('css')
@@ -94,147 +92,142 @@
 
 
     <!--contact js-->
-    
+
     <script src="{{ asset('frontend') }}/js/contact.js"></script>
     <script src="{{ asset('frontend') }}/js/jquery.ajaxchimp.min.js"></script>
     <script src="{{ asset('frontend') }}/js/jquery.form.js"></script>
     <script src="{{ asset('frontend') }}/js/jquery.validate.min.js"></script>
     <script src="{{ asset('frontend') }}/js/mail-script.js"></script>
     <script src="{{ asset('frontend') }}/js/main.js"></script>
-     <!-- Toastr -->
+    <!-- Toastr -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
-     {!! Toastr::render() !!}
+    {!! Toastr::render() !!}
 
-     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script type="text/javascript">
+    function sweet(title, position = "top-end", icon = "success", confirm = false, timer = 1500) {
 
-        function sweet(title,position="top-end",icon="success",confirm=false,timer=1500){
+        Swal.fire({
+            position: position,
+            icon: icon,
+            title: title,
+            showConfirmButton: confirm,
+            timer: timer
+        });
 
-            Swal.fire({
-                        position: position,
-                        icon: icon,
-                        title: title,
-                        showConfirmButton: confirm,
-                        timer: timer
-                    });
+    }
 
-        }
+    $(function() {
 
-        $(function(){
+        // Ajax save job
 
-            // Ajax save job
-
-            $('.heart_mark').on('click',function(e){
-              e.preventDefault();
-               var url = $(this).data('url') + '/save',
-                   linkIcon  = $(this),
-                   spinnerIconHtml = `<i class="fa fa-spinner fa-spin fa-fw"></i>`,
-                   heartIconHtml   = `<i class="fa fa-heart" ></i>`;
+        $('.heart_mark').on('click', function(e) {
+            e.preventDefault();
+            var url = $(this).data('url') + '/save',
+                linkIcon = $(this),
+                spinnerIconHtml = `<i class="fa fa-spinner fa-spin fa-fw"></i>`,
+                heartIconHtml = `<i class="fa fa-heart" ></i>`;
 
 
-               $.ajax({
-                url:url,
-                beforeSend:function(){
+            $.ajax({
+                url: url,
+                beforeSend: function() {
                     linkIcon.html(spinnerIconHtml);
                 },
-                success:function(data){
-                    if ( data.added )
-                    {
-                      linkIcon.html(heartIconHtml)
-                      linkIcon.addClass('bg-green');
+                success: function(data) {
+                    if (data.added) {
+                        linkIcon.html(heartIconHtml)
+                        linkIcon.addClass('bg-green');
 
                     } else {
 
                         linkIcon.html(heartIconHtml)
                         linkIcon.removeClass('bg-green');
                     }
-                    
+
                 },
-               })
             })
+        })
 
-            // Ajax Apply job
+        // Ajax Apply job
 
-            $('.apply_job').on('click',function(e){
-               e.preventDefault();
-               var url = $(this).data('url');
-                   linkIcon  = $(this),
-                   spinnerIconHtml = `<i class="fa fa-spinner fa-spin fa-fw"></i>`;
-               $.ajax({
-                url:url,
-                beforeSend:function(){
-                  linkIcon.append(spinnerIconHtml);
+        $('.apply_job').on('click', function(e) {
+            e.preventDefault();
+            var url = $(this).data('url');
+            linkIcon = $(this),
+                spinnerIconHtml = `<i class="fa fa-spinner fa-spin fa-fw"></i>`;
+            $.ajax({
+                url: url,
+                beforeSend: function() {
+                    linkIcon.append(spinnerIconHtml);
                 },
-                success:function(data){
-                    if ( data.added )
-                    {
+                success: function(data) {
+                    if (data.added) {
                         linkIcon.text('Applied');
                         linkIcon.addClass('bg-blue');
-                    } else 
-                    {
+                    } else {
                         linkIcon.text('Apply Now');
                         linkIcon.removeClass('bg-blue');
                     }
                 },
-               })
-            });
-
-
-            // Confirm delete 
-
-            $('.confirm').click(function(){
-
-                swal({
-  title: "Are you sure?",
-  text: "Once deleted, you will not be able to recover this imaginary file!",
-  icon: "warning",
-  buttons: true,
-  dangerMode: true,
-})
-.then((willDelete) => {
-  if (willDelete) {
-
-     $(this).closest('form').submit();        
-
-  } else {
-    swal("Your imaginary file is safe!");
-  }
-});
-            });
-
-            // Cancel Applicants 
-
-            $('.cancel').on('click',function(event){
-
-                event.preventDefault();
-
-                var url = $(this).data('url');
-                   linkIcon  = $(this),
-                   spinnerIconHtml = `<i class="fa fa-spinner fa-spin fa-fw"></i>`;
-
-                console.log(url);
-
-
-                $.ajax({
-
-                    url:url,
-
-                    beforeSend:function(){
-                        linkIcon.append(spinnerIconHtml);
-                    },
-
-                    success:function(data)
-                    {
-                        linkIcon.parent().parent().remove();
-                        toastr.success('Applicant removed!');    
-                    }
-
-                })
-
             })
         });
+
+
+        // Confirm delete 
+
+        $('.confirm').click(function() {
+
+            swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover this imaginary file!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+
+                        $(this).closest('form').submit();
+
+                    } else {
+                        swal("Your imaginary file is safe!");
+                    }
+                });
+        });
+
+        // Cancel Applicants 
+
+        $('.cancel').on('click', function(event) {
+
+            event.preventDefault();
+
+            var url = $(this).data('url');
+            linkIcon = $(this),
+                spinnerIconHtml = `<i class="fa fa-spinner fa-spin fa-fw"></i>`;
+
+            console.log(url);
+
+
+            $.ajax({
+
+                url: url,
+
+                beforeSend: function() {
+                    linkIcon.append(spinnerIconHtml);
+                },
+
+                success: function(data) {
+                    linkIcon.parent().parent().remove();
+                    toastr.success('Applicant removed!');
+                }
+
+            })
+
+        })
+    });
     </script>
     @stack('js')
 </body>
