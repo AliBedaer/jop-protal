@@ -3,10 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Traits\ViewsTrait;
 class Post extends Model
 {
+    use ViewsTrait;
+
+    
     protected $fillable = ['title','slug','body','admin_id','image'];
+
+
+    public function views()
+    {
+        return $this->morphMany(\App\Models\View::class,'viewable');
+    }
 
     public function tags()
     {
@@ -39,6 +48,8 @@ class Post extends Model
     {
     	return route('posts.show',$this->slug);
     }
+
+   
 }
 
 

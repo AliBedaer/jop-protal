@@ -39,7 +39,11 @@
                             </ul>
 
                             <ul class="blog-info-link">
-                                <li><a href="#"><i class="fa fa-clock-o"></i> {{ $post->readTime }}</a></li>
+                                <li><a href="#"><i class="fa fa-clock-o"></i> {{ $post->readTime }} Read</a></li>
+                            </ul>
+
+                            <ul class="blog-info-link">
+                                <li><a href="#"><i class="fa fa-eye"></i> {{ $post->viewsCount() }}</a></li>
                             </ul>
                         </div>
                     </article>

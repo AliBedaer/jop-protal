@@ -23,10 +23,11 @@
                              {{ $post->title }}
                          </h2>
                          <ul class="blog-info-link mt-3 mb-4">
-                             <li><a href="#"><i class="fa fa-user"></i> Travel, Lifestyle</a></li>
-                             <li><a href="#"><i class="fa fa-clock-o"></i> {{ $post->readTime }}</a></li>
-                         </ul>
+                             <li><a href="#"><i class="fa fa-user"></i> {{ $post->admin->name }}</a></li>
+                             <li><a href="#"><i class="fa fa-clock-o"></i> {{ $post->readTime }} Read</a></li>
+                             <li><a href="#"><i class="fa fa-eye"></i> {{ $post->viewsCount() }}</a></li>
 
+                         </ul>
                          {!! $post->body !!}
                      </div>
                  </div>

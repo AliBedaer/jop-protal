@@ -48,7 +48,7 @@ class PostController extends Controller
 
         if ( $request->hasFile('image') )
         {
-          $data['image'] = upload('image','posts',350,350);
+          $data['image'] = upload('image','posts',700,350);
         }
 
 
@@ -93,7 +93,7 @@ class PostController extends Controller
 
         if ( $request->hasFile('image') )
         {
-            $data['image'] = upload('image','posts',350,350,$post->image);
+            $data['image'] = upload('image','posts',700,350,$post->image);
         }
 
         $post->update($data);
@@ -111,7 +111,7 @@ class PostController extends Controller
     public function destroy(Post $post)
     {          
         $post->delete();
-        
+
         Toastr::success(trans('dashboard.success_delete'));
 
         return redirect(route('dashboard.posts.index'));
