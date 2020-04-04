@@ -9,10 +9,19 @@ use App\DataTables\PostsDataTable;
 use App\Models\Post;
 use App\Models\Tag;
 use App\Models\Category;
+use App\Services\PostService;
 use Toastr;
 
 class PostController extends Controller
 {
+
+    private $service;
+
+    public function __construct(PostService $service)
+    {
+        $this->service = $service;
+    }
+
     public function index(PostsDataTable $posts)
     {
         return $posts->render('dashboard.posts.index',['title' => trans('dashboard.posts')]);
@@ -33,36 +42,36 @@ class PostController extends Controller
     {
     	
 
-    	$data = $request->except(['tags','slug']);
-        $data['slug'] = create_unique_slug(request('title'),Post::class);
+        $data = $request->except(['tags','slug']);
+        
         $data['admin_id'] = auth_admin()->id;
 
-
-        if ( $request->action == 'save' )
+        if ( $request->hasFile('image') )
         {
-            $post = Post::create($data);
-            $post->tags()->sync($request->tags);
-            Toastr::success(trans('dashboard.success_added'));
-            return redirect(route('dashboard.posts.index'));
+          $data['image'] = upload('image','posts',350,350);
+        }
 
-        }  // End if
-        else if ( $request->action == 'save-add' )
+
+        $post = Post::create($data);
+
+        $this->service->handleTags($post,$request);
+
+        Toastr::success(trans('dashboard.success_added'));
+
+
+
+
+        if ( $request->action == 'save-edit' )
         {
-            $post = Post::create($data);
-            $post->tags()->sync($request->tags);
-            Toastr::success(trans('dashboard.success_added'));
-            return back();
-
-        } // End else if
-
-        else if ( $request->action == 'save-edit' )         
-        {
-            $post = Post::create($data);
-            $post->tags()->sync($request->tags);
-            Toastr::success(trans('dashboard.success_added'));
             return redirect(route('dashboard.posts.edit',$post->id));
+        }
 
-        } // End else if
+        if ( $request->action == 'save-add' )
+        {
+            return back();
+        }
+
+        return redirect(route('dashboard.posts.index'));
 
     } // end of store fn
 
@@ -82,14 +91,15 @@ class PostController extends Controller
         
         $data = $request->except(['tags','slug']);
 
-        if ( request('title') !== $post->title )
+        if ( $request->hasFile('image') )
         {
-            $data['slug'] = create_unique_slug(request('title'),Post::class);
+            $data['image'] = upload('image','posts',350,350,$post->image);
         }
 
         $post->update($data);
 
-        $post->tags()->sync($request->tags);
+        $this->service->handleTags($post,$request);
+
 
         Toastr::success(trans('dashboard.success_update'));
 
@@ -99,12 +109,9 @@ class PostController extends Controller
 
 
     public function destroy(Post $post)
-    {
-
-          
-        $post->tags()->detach($post->tags()->allRelatedIds());
+    {          
         $post->delete();
-
+        
         Toastr::success(trans('dashboard.success_delete'));
 
         return redirect(route('dashboard.posts.index'));
@@ -117,14 +124,7 @@ class PostController extends Controller
     public function destroyAll()
     {
         
-        $posts = Post::whereIn('id',request('item'))->get();
-
-        foreach ( $posts as $post )
-        {
-            $post->tags()->detach($post->tags()->allRelatedIds());
-            $post->delete();
-        }
-
+        Post::destroy(request('item'));
         Toastr::success(trans('dashboard.success_delete'));
         return redirect(route('dashboard.posts.index'));
 

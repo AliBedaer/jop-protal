@@ -67,6 +67,18 @@
                 </div>
 
 
+                <div class="form-group">
+                    <label class="control-label">Image</label>
+                    <input id="image-input" name="image" class="form-control" type="file">
+                </div>
+
+                <div class="form-group">
+
+                    <img src="{{ $post->imagePath }}" id="image-file" class="img-fluid" />
+
+                </div>
+
+
 
 
 
@@ -106,12 +118,36 @@ CKEDITOR.replace('textarea');
 $(function() {
 
     $('#tagsSelect2').select2();
-    $('#tagsSelect2').val({
-        !!json_encode($post - > tags() - > allRelatedIds()) !!
-    }).trigger('change');
+    $('#tagsSelect2').val({!!json_encode($post ->tags()-> allRelatedIds()) !!}).trigger('change');
 
 })
 </script>
+
+
+<script type="text/javascript">
+    // Jquery image previw
+    
+    function readURL(input) {
+    
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+    
+            reader.onload = function(e) {
+                $('#image-file').attr('src', e.target.result);
+            }
+    
+            reader.readAsDataURL(input.files[0]);
+        }
+    
+    }
+    
+    $("#image-input").change(function() {
+    
+        readURL(this);
+    
+    });
+    </script>
+
 
 
 @endpush

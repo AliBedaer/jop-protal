@@ -7,10 +7,14 @@ use App\Models\Admin;
 use App\Models\Job;
 use App\Models\Type;
 use App\Models\User;
+use App\Models\Post;
+
 use App\Observers\AdminObserver;
 use App\Observers\JobObserver;
 use App\Observers\TypeObserver;
 use App\Observers\UserObserver;
+use App\Observers\PostObserver;
+
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -36,6 +40,7 @@ class AppServiceProvider extends ServiceProvider
         Admin::observe(AdminObserver::class);
         User::laratrustObserve(UserObserver::class);
         User::observe(UserObserver::class);
+        Post::observe(PostObserver::class);
         Type::observe(TypeObserver::class);
         Job::observe(JobObserver::class);
         View::share('categories',\App\Models\Category::withCount('jobs')->orderBy('jobs_count','desc')->get());

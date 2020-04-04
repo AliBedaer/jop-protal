@@ -66,6 +66,19 @@
                 </div>
 
 
+                <div class="form-group">
+                    <label class="control-label">Image</label>
+                    <input id="image-input" name="image" class="form-control" type="file">
+                </div>
+
+                <div class="form-group">
+
+                    <img id="image-file" class="img-fluid" />
+
+                </div>
+
+
+
 
 
 
@@ -119,6 +132,31 @@ $(function() {
 
 })
 </script>
+
+
+<script type="text/javascript">
+    // Jquery image previw
+    
+    function readURL(input) {
+    
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+    
+            reader.onload = function(e) {
+                $('#image-file').attr('src', e.target.result);
+            }
+    
+            reader.readAsDataURL(input.files[0]);
+        }
+    
+    }
+    
+    $("#image-input").change(function() {
+    
+        readURL(this);
+    
+    });
+    </script>
 
 
 @endpush

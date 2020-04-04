@@ -236,12 +236,8 @@ $(function() {
     $('#tagsSelect2').select2();
     $('#skillsSelect2').select2();
     $('#country_select').select2();
-    $('#tagsSelect2').val({
-        !!json_encode($job - > tags() - > allRelatedIds()) !!
-    }).trigger('change');
-    $('#skillsSelect2').val({
-        !!json_encode($job - > skills() - > allRelatedIds()) !!
-    }).trigger('change');
+    $('#tagsSelect2').val({!!json_encode($job->tags()-> allRelatedIds()) !!}).trigger('change');
+    $('#skillsSelect2').val({!!json_encode($job->skills()-> allRelatedIds()) !!}).trigger('change');
 
 })
 </script>
