@@ -7,6 +7,7 @@
 
 
 @section('content')
+
 <div class="app-title">
     <div>
         <h1><i class="fa fa-home"></i> {{ $title }}</h1>
@@ -83,6 +84,11 @@
 
                 {!! Form::close() !!}
 
+                
+
+            
+
+
             </div>
 
         </div>
@@ -108,9 +114,7 @@ CKEDITOR.replace('textarea');
 $(function() {
 
     $('#tagsSelect2').select2();
-    $('#tagsSelect2').val({
-        !!json_encode(old('tags')) !!
-    }).trigger('change');
+    $('#tagsSelect2').val({!!json_encode(old('tags')) !!}).trigger('change');
 
 
 })

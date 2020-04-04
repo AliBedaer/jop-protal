@@ -233,14 +233,10 @@ CKEDITOR.replace('textarea');
 $(function() {
 
     $('#tagsSelect2').select2();
-    $('#tagsSelect2').val({
-        !!json_encode(old('tags')) !!
-    }).trigger('change');
+    $('#tagsSelect2').val({!!json_encode(old('tags')) !!}).trigger('change');
 
     $('#skillsSelect2').select2();
-    $('#skillsSelect2').val({
-        !!json_encode(old('skills')) !!
-    }).trigger('change');
+    $('#skillsSelect2').val({!!json_encode(old('skills')) !!}).trigger('change');
 
     $('#country_select').select2();
 })

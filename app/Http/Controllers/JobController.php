@@ -25,6 +25,8 @@ class JobController extends Controller
 
     public function index()
     {
+
+        
         $jobs = Job::with('type:id,name', 'country:id,name')->latest();
 
         if (request()->has('keyword') and !empty(request('keyword'))) {
@@ -60,6 +62,7 @@ class JobController extends Controller
     public function create()
     {
         return view('frontend.jobs.create');
+
     } // end of create
 
     public function store(JobRequest $request,JobService $service)
@@ -86,7 +89,9 @@ class JobController extends Controller
         $data = $request->except(['banner','tags','skills']);
 
         if ($request->hasFile('banner')) {
+
             $data['banner'] = upload('banner', 'jobs', 250, 250, $job->banner);
+
         }
 
         $job->update($data);
@@ -102,7 +107,7 @@ class JobController extends Controller
     {
         $job = Job::findBySlug($slug);
 
-        $r_jobs = $job->relatedJobs();
+        $r_jobs = $job->relatedJobs(); // Stand for related jobs
 
         return view('frontend.jobs.show', compact('job', 'r_jobs'));
     } // end of show 
@@ -111,6 +116,7 @@ class JobController extends Controller
     public function edit(Job $job)
     {
         return view('frontend.jobs.edit', compact('job'));
+
     } // end of edit 
 
 
@@ -119,6 +125,7 @@ class JobController extends Controller
         $job->delete();
         Toastr::success('Job deleted!');
         return redirect()->route('jobs.index');
+
     } // end of destroy
 
 
@@ -140,7 +147,9 @@ class JobController extends Controller
 
             return response(['removed' => true], 200);
         }
+
         abort(404);
+        
     } // end of save Job
 
 
