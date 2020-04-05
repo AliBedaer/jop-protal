@@ -8,6 +8,9 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+
+
     <!-- <link rel="manifest" href="site.webmanifest"> -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('frontend') }}/img/favicon.png">
     <!-- Place favicon.ico in the root directory -->
@@ -121,37 +124,99 @@
 
     $(function() {
 
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+
         // Ajax save job
 
         $('.heart_mark').on('click', function(e) {
-            e.preventDefault();
-            var url = $(this).data('url') + '/save',
-                linkIcon = $(this),
-                spinnerIconHtml = `<i class="fa fa-spinner fa-spin fa-fw"></i>`,
-                heartIconHtml = `<i class="fa fa-heart" ></i>`;
 
+            e.preventDefault();
+            var heartBtn = $(this),
+                spinnerIconHtml = `<i class="fa fa-spinner fa-spin fa-fw"></i>`,
+                heartIconHtml = `<i class="fa fa-heart" ></i>`,
+                form = heartBtn.parent(),
+                data = form.serialize();
+
+            console.log(data);
 
             $.ajax({
-                url: url,
+                url: form.attr('action'),
+                type: 'POST',
+
+                data: data,
                 beforeSend: function() {
-                    linkIcon.html(spinnerIconHtml);
+                    heartBtn.html(spinnerIconHtml);
                 },
                 success: function(data) {
                     if (data.added) {
-                        linkIcon.html(heartIconHtml)
-                        linkIcon.addClass('bg-green');
+                        heartBtn.html(heartIconHtml)
+                        heartBtn.addClass('bg-green');
+                        toastr.success('Job Saved Successfully!');
 
                     } else {
 
-                        linkIcon.html(heartIconHtml)
-                        linkIcon.removeClass('bg-green');
+                        heartBtn.html(heartIconHtml)
+                        heartBtn.removeClass('bg-green');
+                        toastr.success('Job removed Successfully!');
+
                     }
+                }
+            })
+        });
+
+
+
+
+        $('.apply_job').on('click', function(e) {
+
+            e.preventDefault();
+            var applyBtn = $(this),
+                spinnerIconHtml = `<i class="fa fa-spinner fa-spin fa-fw"></i>`,
+                form = applyBtn.parent(),
+                data = form.serialize();
+
+            console.log(data);
+
+            $.ajax({
+
+                url: form.attr('action'),
+                type: 'POST',
+
+                data: data,
+                beforeSend: function() {
+
+                    applyBtn.append(spinnerIconHtml);
 
                 },
+                success: function(data) {
+                    if (data.added) {
+
+                        applyBtn.text('Applied');
+                        applyBtn.addClass('bg-blue');
+                        toastr.success('You applyied on job');
+
+                    } else {
+
+                        applyBtn.text('Apply Now');
+                        applyBtn.removeClass('bg-blue');
+                        toastr.success('apply removed from job');
+
+                    }
+                }
             })
-        })
+        });
+
+
+
 
         // Ajax Apply job
+        /*
 
         $('.apply_job').on('click', function(e) {
             e.preventDefault();
@@ -174,7 +239,7 @@
                 },
             })
         });
-
+*/
 
         // Confirm delete 
 

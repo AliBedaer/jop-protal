@@ -64,8 +64,9 @@ Route::group(
             Route::get('jobs/applied','JobController@appliedJobs')->name('jobs.applied');
             Route::get('jobs/applied/{slug}/destroy','JobController@destroyApplied')->name('jobs.destroyApplied');
             Route::get('jobs/{slug}','JobController@show')->name('jobs.show');
-            Route::get('jobs/{slug}/save','JobController@saveJob')->name('jobs.save');
-            Route::get('jobs/{slug}/apply','JobController@applyJob')->name('jobs.apply');
+            Route::post('jobs/{slug}/apply','JobController@applyJob')->name('jobs.apply');
+
+            Route::post('jobs/{slug}/save','JobController@saveJob')->name('jobs.save');
 
         // Posts Routes 
 

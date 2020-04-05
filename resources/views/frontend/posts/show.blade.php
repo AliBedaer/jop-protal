@@ -54,33 +54,36 @@
                                          <img class="img-fluid" src="img/post/preview.png" alt="">
                                      </a>
                                  </div>
+                                 @if ( !empty($prev) )
                                  <div class="arrow">
-                                     <a href="#">
+                                     <a href="{{ $prev->showUrl }}">
                                          <span class="lnr text-white ti-arrow-left"></span>
                                      </a>
                                  </div>
                                  <div class="detials">
                                      <p>Prev Post</p>
 
-                                     <a href="">
-                                         <h4>prev post</h4>
+                                     <a href="{{ $prev->showUrl }}">
+                                         <h4>{{ $prev->title }}</h4>
                                      </a>
-
                                  </div>
+                                 @endif
                              </div>
                              <div
                                  class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
                                  <div class="detials">
+                                     @if ( !empty($next) )
                                      <p>Next Post</p>
-                                     <a href="#">
-                                         <h4>Telescopes 101</h4>
+                                     <a href="{{ $next->showUrl }}">
+                                         <h4>{{ $next->title }}</h4>
                                      </a>
                                  </div>
                                  <div class="arrow">
-                                     <a href="#">
+                                     <a href="{{ $next->showUrl }}">
                                          <span class="lnr text-white ti-arrow-right"></span>
                                      </a>
                                  </div>
+                                 @endif
                                  <div class="thumb">
                                      <a href="#">
                                          <img class="img-fluid" src="img/post/next.png" alt="">

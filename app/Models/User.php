@@ -191,10 +191,7 @@ class User extends Authenticatable
     */
     public function hasSavedJob($job)
     {
-        $seekersIds = $job->seekers()->allRelatedIds()->toArray();
-        $userId     = $this->id;
-
-        return in_array($userId,$seekersIds);
+        return $this->savedJobs->contains($job);
     }
 
 
@@ -206,9 +203,6 @@ class User extends Authenticatable
 
     public function hasAppliedJob($job)
     {
-        $applicantsIds = $job->applicants()->allRelatedIds()->toArray();
-        $userId        = $this->id;
-
-        return in_array($userId,$applicantsIds);
+        return $this->appliedJobs->contains($job);
     }
 }

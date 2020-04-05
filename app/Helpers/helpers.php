@@ -8,6 +8,15 @@
 /*** helpers functions ***/
 
 
+if ( !function_exists('user') )
+{
+	function user()
+	{
+		return auth()->user();
+	}
+}
+
+
 
 if ( !function_exists('aurl') )
 {

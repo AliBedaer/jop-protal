@@ -49,6 +49,20 @@ class Post extends Model
     	return route('posts.show',$this->slug);
     }
 
+
+    public function getNextPostAttribute()
+    {
+        $next = static::where('id','>',$this->id)->first();
+        return $next;
+    }
+
+    public function getPrevPostAttribute()
+    {
+        $id   = static::where('id','<',$this->id)->max('id');
+        $prev = static::find($id); 
+        return $prev;
+    }
+
    
 }
 

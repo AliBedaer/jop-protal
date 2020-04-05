@@ -35,21 +35,25 @@
                             <div class="form-group">
                                 <input class="form-control" name="name" id="name" type="text"
                                     onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'"
-                                    placeholder='Enter your name'>
+                                    placeholder='Enter your name'
+                                    value="@auth{{ user()->name }}@endauth"
+                                    >
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <input class="form-control" name="email" id="email" type="email"
                                     onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'"
-                                    placeholder='Enter email address'>
+                                    placeholder='Enter email address'
+                                    value="@auth{{ user()->email }}@endauth">
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
                                 <input class="form-control" name="subject" id="subject" type="text"
                                     onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Subject'"
-                                    placeholder='Enter Subject'>
+                                    placeholder='Enter Subject'
+                                    >
                             </div>
                         </div>
                     </div>
