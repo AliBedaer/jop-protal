@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\FrontEnd\JobRequest;
 use App\Models\Job;
-use App\Notifications\JobApplyed;
 use App\Services\JobService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Notification;
 use Toastr;
 
 class JobController extends Controller
@@ -17,9 +15,7 @@ class JobController extends Controller
         $this->middleware(['auth','role:company'])->only(['create','store']);
         $this->middleware(['auth','role:company','can:update,job'])->only(['edit','update']);
         $this->middleware(['auth','role:company','can:delete,job'])->only(['destroy']);
-        $this->middleware(['auth','role:seeker'])->only([
-            'saveJob','applyJob','savedJobs','appliedJobs','destroySaved','destroyApplied'
-        ]);
+        
     } // end of constructor
 
 
@@ -50,8 +46,6 @@ class JobController extends Controller
                 return $q->where('name', request('country'));
             });
         }
-
-
 
         $jobs = $jobs->paginate(10);
 
@@ -110,6 +104,7 @@ class JobController extends Controller
         $r_jobs = $job->relatedJobs(); // Stand for related jobs
 
         return view('frontend.jobs.show', compact('job', 'r_jobs'));
+
     } // end of show 
 
 
@@ -123,91 +118,14 @@ class JobController extends Controller
     public function destroy(Job $job)
     {
         $job->delete();
+
         Toastr::success('Job deleted!');
+
         return redirect()->route('jobs.index');
+        
 
     } // end of destroy
 
 
-    public function saveJob($slug)
-    {
-        if (request()->ajax()) {
-
-            $job  = Job::findBySlug($slug);
-
-            $user = auth()->user();
-
-            $user->savedJobs()->toggle($job);
-
-
-            if ($user->hasSavedJob($job)) {
-                
-                return response(['added'=> true], 200);
-            }
-
-            return response(['removed' => true], 200);
-        }
-
-        abort(404);
-        
-    } // end of save Job
-
-
-    public function applyJob($slug)
-    {
-        if (request()->ajax()) {
-
-            $job  = Job::findBySlug($slug);
-
-            $user = auth()->user();
-
-            $user->appliedJobs()->toggle($job);
-
-            if ($user->hasAppliedJob($job)) {
-
-                Notification::send($job->user, new JobApplyed($job, $user));
-                
-                return response(['added'=> true], 200);
-            }
-
-            return response(['removed' => true], 200);
-        }
-
-        abort(404);
-    } 
-
-
-    public function savedJobs()
-    {
-        $jobs = auth()->user()->savedJobs()->latest()->paginate(5);
-
-        return view('frontend.jobs.saved', compact('jobs'));
-    }
-
-    public function destroySaved($slug)
-    {
-        $job = Job::findBySlug($slug);
-
-        auth()->user()->savedJobs()->detach($job->id);
-
-        return back();
-    }
-
-
-    public function AppliedJobs()
-    {
-        $jobs = auth()->user()->appliedJobs()->latest()->paginate(5);
-
-        return view('frontend.jobs.applied', compact('jobs'));
-
-    }
-
-    public function destroyApplied($slug)
-    {
-        $job = Job::findBySlug($slug);
-
-        auth()->user()->appliedJobs()->detach($job->id);
-
-        return back();
-    }
+   
 }

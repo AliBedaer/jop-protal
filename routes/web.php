@@ -38,6 +38,13 @@ Route::group(
             Route::get('companies/{id}/{slug}','CompanyController@show')->name('companies.show');
             Route::get('company/jobs','CompanyController@jobs')->name('company.jobs');
             Route::get('company/notifications','CompanyController@notifications')->name('company.notifications');
+            Route::post('jobs/{slug}/apply', 'SeekerController@applyJob')->name('jobs.apply');
+            Route::post('jobs/{slug}/save', 'SeekerController@saveJob')->name('jobs.save');
+            Route::get('jobs/saved', 'SeekerController@savedJobs')->name('jobs.saved');
+            Route::get('jobs/saved/{slug}/destroy', 'SeekerController@destroySaved')->name('jobs.destroySaved');
+            Route::get('jobs/applied', 'SeekerController@appliedJobs')->name('jobs.applied');
+            Route::get('jobs/applied/{slug}/destroy', 'SeekerController@destroyApplied')->name('jobs.destroyApplied');
+
 
         // Cancel Seeker
 
@@ -45,9 +52,10 @@ Route::group(
            
         // Tags Routes
 
-            Route::get('jobs/tags/{slug}','TagController@show')->name('tags.show');
+            Route::get('jobs/tags/{slug}','TagController@jobsShow')->name('tags.jobs.show');
+            Route::get('posts/tags/{slug}','TagController@postsShow')->name('tags.posts.show');
 
-        // Tags Routes
+        // Skills Routes
 
             Route::get('skills/{slug}','SkillController@show')->name('skills.show');
 
@@ -59,14 +67,8 @@ Route::group(
         // Jobs Routes
 
             Route::resource('jobs','JobController')->except(['show']);
-            Route::get('jobs/saved','JobController@savedJobs')->name('jobs.saved');
-            Route::get('jobs/saved/{slug}/destroy','JobController@destroySaved')->name('jobs.destroySaved');
-            Route::get('jobs/applied','JobController@appliedJobs')->name('jobs.applied');
-            Route::get('jobs/applied/{slug}/destroy','JobController@destroyApplied')->name('jobs.destroyApplied');
             Route::get('jobs/{slug}','JobController@show')->name('jobs.show');
-            Route::post('jobs/{slug}/apply','JobController@applyJob')->name('jobs.apply');
-
-            Route::post('jobs/{slug}/save','JobController@saveJob')->name('jobs.save');
+           
 
         // Posts Routes 
 

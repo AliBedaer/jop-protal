@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Storage;
+use App\Traits\BaseTrait;
+use Illuminate\Database\Eloquent\Model;
 
 class Job extends Model
 {
+
+    use BaseTrait;
+
 
     protected $table = 'jobs_listings';
 
@@ -126,10 +130,7 @@ class Job extends Model
         return route('jobs.show',$this->slug);
     }
 
-    public static function findBySlug($slug)
-    {
-        return static::with('tags','skills','country','type')->whereSlug($slug)->firstOrFail();
-    }
+    
 
     public function relatedJobs($limit=5)
     {

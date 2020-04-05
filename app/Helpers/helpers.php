@@ -8,6 +8,12 @@
 /*** helpers functions ***/
 
 
+/**
+ * Return current auth user
+ * @return \App\Models\User $object
+*/
+
+
 if ( !function_exists('user') )
 {
 	function user()
@@ -246,7 +252,7 @@ function get_reading_time($content)
 
 if ( !function_exists('draw_chart') )
 {
-	function draw_chart($chartClass,$labels=[],$data=[],$type='bar',$title='Char Title')
+	function draw_chart($chartClass,$labels=[],$data=[],$type='bar',$title='Chart Title')
 	{
 		$chart = new $chartClass;
 
@@ -268,6 +274,7 @@ if ( !function_exists('draw_chart') )
 		return $chart;
 	}
 }
+
 
 
 

@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Traits\BaseTrait;
 use App\Traits\ViewsTrait;
+use Illuminate\Database\Eloquent\Model;
+
 class Post extends Model
 {
     use ViewsTrait;
+    use BaseTrait;
 
     
     protected $fillable = ['title','slug','body','admin_id','image'];

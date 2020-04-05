@@ -179,7 +179,7 @@
                     </div>
                     <div class="job_content">
                         @foreach($job->tags as $tag)
-                        <a href="{{ route('tags.show',$tag->slug) }}">
+                        <a href="{{ route('tags.jobs.show',$tag->slug) }}">
                             <span class="badge badge-primary">
                                 <i class="fa fa-tag"></i>
                                 {{ $tag->name }}

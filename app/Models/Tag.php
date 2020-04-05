@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\BaseTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model
 {
+
+    use BaseTrait;
     protected $fillable = [ 'name' , 'slug' ];
 
 
@@ -48,11 +51,7 @@ class Tag extends Model
 
 
 
-    public static function findBySlug($slug)
-    {
-        return static::with('jobs')->whereSlug($slug)->firstOrFail();
-    }
-
+   
 
 
 

@@ -78,7 +78,7 @@
                         <ul>
                             @foreach( $tags as $tag )
                             <li>
-                                <a href="{{ route('tags.show',$tag->slug) }}">
+                                <a href="{{ route('tags.jobs.show',$tag->slug) }}">
                                 {{ $tag->name }}
                                </a>
                         </li>

@@ -17,6 +17,7 @@
                 <div class="blog_left_sidebar">
 
                     @forelse( $posts as $post )
+
                     <article class="blog_item">
                         <div class="blog_item_img">
                             <img class="card-img rounded-0" src="{{ $post->imagePath }}" alt="">
@@ -67,10 +68,10 @@
             <div class="col-lg-4">
                 <div class="blog_right_sidebar">
                     <aside class="single_sidebar_widget search_widget">
-                        <form action="#">
+                        <form method="GET" action="{{ route('posts.index') }}">
                             <div class="form-group">
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder='Search Keyword'
+                                    <input value="{{ request('keyword') }}" type="text" name="keyword" class="form-control" placeholder='Search Keyword'
                                         onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Keyword'">
                                     <div class="input-group-append">
                                         <button class="btn" type="button"><i class="ti-search"></i></button>
@@ -108,7 +109,7 @@
                         <ul class="list">
                             @foreach( $tags as $tag )
                             <li>
-                                <a href="#">{{ $tag->name }}</a>
+                                <a href="{{ route('tags.posts.show',$tag->slug) }}">{{ $tag->name }}</a>
                             </li>
                             @endforeach
 
