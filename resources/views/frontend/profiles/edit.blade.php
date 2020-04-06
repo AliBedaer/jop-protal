@@ -76,6 +76,7 @@ $seekerFields = ['fullname','mobile','position'];
                         @foreach( $seekerFields as $field )
 
                         <div class="form-group m-3">
+
                             {!! Form::text($field,$user->profile->$field,
 
                             ['class' => 'form-control','placeholder' => ucfirst($field)]
@@ -153,13 +154,11 @@ $seekerFields = ['fullname','mobile','position'];
                         {!! Form::open(['route' => 'profile.change']) !!}
                         @method('PUT')
                         <div class="form-group m-3">
-                            {!! Form::password('old_password',['class' => 'form-control','placeholder' => 'Old
-                            Password']) !!}
+                            {!! Form::password('old_password',['class' => 'form-control','placeholder' => 'Old Password']) !!}
                         </div>
 
                         <div class="form-group m-3">
-                            {!! Form::password('new_password',['class' => 'form-control','placeholder' => 'New
-                            Password']) !!}
+                            {!! Form::password('new_password',['class' => 'form-control','placeholder' => 'New Password']) !!}
                         </div>
 
                         <div class="form-group m-3">

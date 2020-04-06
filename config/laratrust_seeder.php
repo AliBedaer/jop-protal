@@ -3,10 +3,12 @@
 return [
     'role_structure' => [
         'seeker' => [
-            'jobs' => 'r,s',
+            'jobs' => 'r,s,a',
         ],
         'company' => [
+
             'jobs' => 'c,r,u,d',
+
         ],
     ],
     
@@ -16,5 +18,6 @@ return [
         'u' => 'update',
         'd' => 'delete',
         's' => 'save',
+        'a' => 'apply',
     ]
 ];

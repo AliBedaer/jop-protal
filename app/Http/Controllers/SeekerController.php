@@ -20,7 +20,7 @@ class SeekerController extends Controller
 
     public function index()
     {
-    	$seekers = User::seekers()->paginate(10);
+    	$seekers = User::seekers()->paginate(12);
     	return view('frontend.seekers.index',compact('seekers'));
     }
 
@@ -84,7 +84,7 @@ class SeekerController extends Controller
     {
         $jobs = auth()->user()->savedJobs()->latest()->paginate(5);
 
-        return view('frontend.jobs.saved', compact('jobs'));
+        return view('frontend.seekers.saved', compact('jobs'));
     }
 
     public function destroySaved($slug)
@@ -101,7 +101,7 @@ class SeekerController extends Controller
     {
         $jobs = auth()->user()->appliedJobs()->latest()->paginate(5);
 
-        return view('frontend.jobs.applied', compact('jobs'));
+        return view('frontend.seekers.applied', compact('jobs'));
 
     }
 

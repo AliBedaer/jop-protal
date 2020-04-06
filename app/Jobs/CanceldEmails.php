@@ -8,7 +8,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\CancelApplier;
+use App\Mail\CancelApplicant;
 
 
 class CanceldEmails implements ShouldQueue
@@ -38,7 +38,7 @@ class CanceldEmails implements ShouldQueue
      */
     public function handle()
     {
-        $mail = new CancelApplier($this->seeker,$this->company,$this->listing);
+        $mail = new CancelApplicant($this->seeker,$this->company,$this->listing);
         Mail::to($this->seeker->email)->send($mail);
     }
 }

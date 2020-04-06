@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class CancelApplier extends Mailable
+class CancelApplicant extends Mailable
 {
     use Queueable, SerializesModels;
 
