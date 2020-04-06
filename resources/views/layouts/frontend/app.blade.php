@@ -187,6 +187,7 @@
                     heartBtn.html(spinnerIconHtml);
                 },
                 success: function(data) {
+                    
                     if (data.added) {
                         heartBtn.html(heartIconHtml)
                         heartBtn.addClass('bg-green');
@@ -248,31 +249,7 @@
 
 
 
-        // Ajax Apply job
-        /*
-
-        $('.apply_job').on('click', function(e) {
-            e.preventDefault();
-            var url = $(this).data('url');
-            linkIcon = $(this),
-                spinnerIconHtml = `<i class="fa fa-spinner fa-spin fa-fw"></i>`;
-            $.ajax({
-                url: url,
-                beforeSend: function() {
-                    linkIcon.append(spinnerIconHtml);
-                },
-                success: function(data) {
-                    if (data.added) {
-                        linkIcon.text('Applied');
-                        linkIcon.addClass('bg-blue');
-                    } else {
-                        linkIcon.text('Apply Now');
-                        linkIcon.removeClass('bg-blue');
-                    }
-                },
-            })
-        });
-*/
+  
 
         // Confirm delete 
 
@@ -296,35 +273,7 @@
                 });
         });
 
-        // Cancel Applicants 
-
-        $('.cancel').on('click', function(event) {
-
-            event.preventDefault();
-
-            var url = $(this).data('url');
-            linkIcon = $(this),
-                spinnerIconHtml = `<i class="fa fa-spinner fa-spin fa-fw"></i>`;
-
-            console.log(url);
-
-
-            $.ajax({
-
-                url: url,
-
-                beforeSend: function() {
-                    linkIcon.append(spinnerIconHtml);
-                },
-
-                success: function(data) {
-                    linkIcon.parent().parent().remove();
-                    toastr.success('Applicant removed!');
-                }
-
-            })
-
-        })
+    
     });
     </script>
     @stack('js')

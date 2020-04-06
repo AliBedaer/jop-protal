@@ -48,7 +48,7 @@ Route::group(
 
         // Cancel Seeker
 
-            Route::get('cancel/{job}/{seeker}/{company}/send','CompanyController@cancelApplicant')->name('companies.cancel');
+            Route::delete('cancel/{job}/{seeker}/{company}/send','CompanyController@cancelApplicant')->name('companies.cancel');
            
         // Tags Routes
 

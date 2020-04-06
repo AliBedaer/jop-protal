@@ -96,14 +96,20 @@
                             <tr>
 
                                 <th scope="row">{{ $seeker->id }}</th>
-                                <td><a href="#">{{ $seeker->name }}</a></td>
+                                <td><a href="{{ $seeker->showUrl }}">{{ $seeker->name }}</a></td>
                                 <td>
-                                    <a data-url="{{ route('companies.cancel',['job' => $job->id,'seeker' => $seeker->id,'company' => $job->user->id]) }}"
-                                        href="{{ route('companies.cancel',['job' => $job->id,'seeker' => $seeker->id,'company' => $job->user->id]) }}"
-                                        class="btn btn-danger text-white cancel">
+                                 <form class="d-inline-block" method="POST"
+                                 action="{{ route('companies.cancel',['job' => $job->id,'seeker' => $seeker->id,'company' => $job->user->id]) }}"
+                                 >
+                                 @csrf
+                                 @method('DELETE')
+                                    <a 
+                                        href="#"
+                                        class="btn btn-danger text-white cancel_applicant">
                                         <i class="fa fa-trash"></i>
                                         Cancel
                                     </a>
+                                    </form>
                                 </td>
 
                             </tr>
@@ -224,5 +230,8 @@
 
 <script src="{{ asset('js/share.js') }}"></script>
 
+<script>
+  ajax_delete('.cancel_applicant')
+</script>
 
 @endpush

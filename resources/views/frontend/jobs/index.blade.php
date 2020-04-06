@@ -67,14 +67,7 @@
                                 </div>
 
 
-                                <div class="col-lg-12">
-                                    <div class="single_field">
-                                        <select name="sort" class="wide">
-                                            <option value="latest">Latest</option>
-                                            <option value="recent">Recent</option>
-                                        </select>
-                                    </div>
-                                </div>
+                                
 
                                 <div class="col-lg-12">
                                     <button class="boxed-btn3 w-100" type="submit">Search</button>
