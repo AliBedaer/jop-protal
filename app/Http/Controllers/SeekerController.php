@@ -17,11 +17,13 @@ class SeekerController extends Controller
         ]);
 
     }
+
     public function index()
     {
     	$seekers = User::seekers()->paginate(10);
     	return view('frontend.seekers.index',compact('seekers'));
     }
+
 
     public function show($id,$slug)
     {
@@ -29,8 +31,9 @@ class SeekerController extends Controller
     	return view('frontend.seekers.show',compact('seeker'));
     }
 
+
      public function saveJob($slug)
-    {
+     {
         if (request()->ajax()) {
 
             $job  = Job::findBySlug($slug);
@@ -86,11 +89,11 @@ class SeekerController extends Controller
 
     public function destroySaved($slug)
     {
-        $job = Job::findBySlug($slug);
+        if ( request()->ajax()){
 
-        auth()->user()->savedJobs()->detach($job->id);
-
-        return back();
+            $job = Job::findBySlug($slug);
+            auth()->user()->savedJobs()->detach($job->id);
+        }
     }
 
 
@@ -104,10 +107,13 @@ class SeekerController extends Controller
 
     public function destroyApplied($slug)
     {
-        $job = Job::findBySlug($slug);
+        if ( request()->ajax() )
+        {
+            $job = Job::findBySlug($slug);
 
-        auth()->user()->appliedJobs()->detach($job->id);
+            auth()->user()->appliedJobs()->detach($job->id);
+        }
 
-        return back();
+        return response('done');
     }
 }

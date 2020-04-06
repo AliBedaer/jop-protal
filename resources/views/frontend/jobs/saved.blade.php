@@ -33,8 +33,11 @@
                             <td><a href="{{ $job->showUrl }}">{{ $job->title }}</a></td>
                             <td><a href="#">{{ $job->user->name }}</a></td>
                             <td>
-                                <a href="{{ route('jobs.destroySaved',$job->slug) }}" class="btn text-danger"><i
-                                        class="fa fa-trash"></i></a>
+                               {!! Form::open(['route' => ['jobs.destroySaved',$job->slug]],['class'=> 'd-inline-block']) !!}
+                               @method('DELETE')
+                                <a href="#"
+                                    class="btn text-danger delete_saved"><i class="fa fa-trash"></i></a>
+                                {!! Form::close() !!}
                             </td>
                         </tr>
                     </tbody>
@@ -54,3 +57,12 @@
 
 
 @endsection
+
+
+@push('js')
+
+<script>
+  ajax_delete('.delete_saved');
+</script>
+
+@endpush

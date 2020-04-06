@@ -110,14 +110,47 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script type="text/javascript">
-    function sweet(title, position = "top-end", icon = "success", confirm = false, timer = 1500) {
+    function ajax_delete(selector) {
+        $(selector).click(function(e) {
 
-        Swal.fire({
-            position: position,
-            icon: icon,
-            title: title,
-            showConfirmButton: confirm,
-            timer: timer
+            e.preventDefault();
+
+            swal({
+                    title: "Are you sure?",
+                    text: "",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+
+                        var form = $(this).parent(),
+                            btn = $(this),
+                            data = form.serialize();
+
+
+
+                        $.ajax({
+
+                            url: form.attr('action'),
+                            type: 'DELETE',
+                            data: data,
+
+                            success: function(data) {
+
+                                form.parent().parent().remove();
+                                toastr.success('Removed from saved');
+
+                            },
+
+                        })
+
+
+                    } else {
+                        swal("Your imaginary file is safe!");
+                    }
+                });
         });
 
     }

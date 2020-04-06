@@ -32,8 +32,19 @@
                      </div>
                  </div>
                  <div class="navigation-top">
-                     
+                     <div class="tags">
+                         @foreach( $post->tags  as $tag)
+                         <a href="{{ route('tags.posts.show',$tag->slug) }}">
+                             <span class="badge badge-primary">
+                                 <i class="fa fa-tag"></i>
+                                 {{ $tag->name }}
+                            </span>
+                         </a>
+                         @endforeach
+
+                     </div>
                      <div class="navigation-area">
+                         
                          <div class="row">
                              <div
                                  class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">

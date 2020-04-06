@@ -41,9 +41,9 @@ Route::group(
             Route::post('jobs/{slug}/apply', 'SeekerController@applyJob')->name('jobs.apply');
             Route::post('jobs/{slug}/save', 'SeekerController@saveJob')->name('jobs.save');
             Route::get('jobs/saved', 'SeekerController@savedJobs')->name('jobs.saved');
-            Route::get('jobs/saved/{slug}/destroy', 'SeekerController@destroySaved')->name('jobs.destroySaved');
+            Route::delete('jobs/saved/{slug}/destroy', 'SeekerController@destroySaved')->name('jobs.destroySaved');
             Route::get('jobs/applied', 'SeekerController@appliedJobs')->name('jobs.applied');
-            Route::get('jobs/applied/{slug}/destroy', 'SeekerController@destroyApplied')->name('jobs.destroyApplied');
+            Route::delete('jobs/applied/{slug}/destroy', 'SeekerController@destroyApplied')->name('jobs.destroyApplied');
 
 
         // Cancel Seeker

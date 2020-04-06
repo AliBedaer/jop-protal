@@ -182,16 +182,17 @@ if ( !function_exists('sidebarLinks') )
 	{
 		$links = 
 		[
-			'admins'     => 'fa-user',
-		    'users'      => 'fa-users',
-		    'types'      => 'fa-sort',
-		    'countries'  => 'fa-flag',
-		    'skills'     => 'fa-bolt',
-		    'tags'       => 'fa-tags',
-		    'categories' => 'fa-th-list',
-		    'posts'      => 'fa-paragraph',
-		    'comments'   => 'fa-comments-o',
-		    'jobs'       => 'fa-money',
+			'admins'       => 'fa-user',
+		    'users'        => 'fa-users',
+		    'types'        => 'fa-sort',
+		    'countries'    => 'fa-flag',
+		    'skills'       => 'fa-bolt',
+		    'tags'         => 'fa-tags',
+		    'categories'   => 'fa-th-list',
+		    'posts'        => 'fa-paragraph',
+		    'comments'     => 'fa-comments-o',
+			'jobs'         => 'fa-money',
+			'testimonials' => 'fa-quote-left'
 		];
 
 		return $links;
