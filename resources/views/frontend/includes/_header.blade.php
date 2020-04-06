@@ -44,21 +44,21 @@
                                                 @role('seeker')
 
                                                 <li>
-                                                    <a href="{{ route('jobs.saved') }}">Saved Jobs</a>
+                                                    <a href="{{ route('jobs.saved') }}">Saved Jobs ({{ user()->savedJobs->count() }})</a>
                                                 </li>
 
                                                 <li>
-                                                    <a href="{{ route('jobs.applied') }}">Applied Jobs</a>
+                                                    <a href="{{ route('jobs.applied') }}">Applied Jobs ({{ user()->appliedJobs->count() }})</a>
                                                 </li>
 
                                                 @endrole
                                                 @role('company')
                                                 <li>
                                                     <a
-                                                        href="{{ route('company.notifications') }}">Notifications({{ auth()->user()->unreadNotifications->count() }})</a>
+                                                        href="{{ route('company.notifications') }}">Notifications ({{ auth()->user()->unreadNotifications->count() }})</a>
                                                 </li>
                                                 <li>
-                                                    <a href="{{ route('company.jobs') }}">My Jobs</a>
+                                                    <a href="{{ route('company.jobs') }}">My Jobs ( {{ user()->jobs->count() }} )</a>
                                                 </li>
                                                 <li>
                                                     <a href="{{ route('jobs.create') }}">Add job</a>
