@@ -3,13 +3,11 @@
 namespace App\Models;
 
 use Storage;
-use App\Traits\BaseTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Job extends Model
 {
 
-    use BaseTrait;
 
 
     protected $table = 'jobs_listings';
@@ -130,6 +128,13 @@ class Job extends Model
         return route('jobs.show',$this->slug);
     }
 
+
+    public function scopeFindBySlug($q,$slug)
+    {
+        return $q->with('category:id,name','country:id,name','type:id,name','user:id,name')
+        ->where('slug',$slug)->firstOrFail();
+    }
+
     
 
     public function relatedJobs($limit=5)
@@ -166,6 +171,10 @@ class Job extends Model
 
         return $new_job;
     }
+
+
+
+    
 
 
    

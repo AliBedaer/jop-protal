@@ -139,6 +139,7 @@
                             <li>Salary: <span>{{ $job->salary }} ($)</span></li>
                             <li>Location: <span>{{ $job->country->name }}</span></li>
                             <li>Job Nature: <span> {{ $job->type->name }}</span></li>
+                            <li>Category: <span> {{ $job->category->name }}</span></li>
                         </ul>
                     </div>
                 </div>
