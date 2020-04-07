@@ -27,21 +27,7 @@ class Job extends Model
     ];
 
 
-    /**
-    * Scope To Get Recent Jobs 
-    * @param query $q 
-    * @param int $limit ( pagination )
-    * @return void 
-    */
-
-    public function scopeRecentJobs($q,$limit=5)
-    {
-        return $q->with('type:id,name','country:id,name')
-                          ->limit(5)
-                          ->orderBy('created_at','desc')
-                          ->get();
-    }
-
+   
     /**
     * One To Many Relationship every job Belong to one user   
     *
@@ -94,8 +80,8 @@ class Job extends Model
 
     public function seekers()
     {
-        return $this->belongsToMany(User::class,'job_seeker')
-                     ->with('savedJobs');
+        return $this->belongsToMany(User::class,'job_seeker');
+                     
     }
 
     /**
@@ -105,8 +91,8 @@ class Job extends Model
 
     public function applicants()
     {
-        return $this->belongsToMany(User::class,'job_applicant')
-                    ->with('appliedJobs');
+        return $this->belongsToMany(User::class,'job_applicant');
+                    
     }
 
     /**
@@ -129,20 +115,10 @@ class Job extends Model
     }
 
 
-    public function scopeFindBySlug($q,$slug)
-    {
-        return $q->with('category:id,name','country:id,name','type:id,name','user:id,name')
-        ->where('slug',$slug)->firstOrFail();
-    }
-
+    
     
 
-    public function relatedJobs($limit=5)
-    {
-        return static::with('tags','skills','country','type')->where('id','!=',$this->id)->where('title','like', '%'. $this->title .'%')
-                  ->limit($limit)
-                  ->get();
-    }
+   
 
 
     /**

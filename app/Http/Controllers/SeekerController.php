@@ -36,7 +36,8 @@ class SeekerController extends Controller
      {
         if (request()->ajax()) {
 
-            $job  = Job::findBySlug($slug);
+            $job  = Job::whereSlug($slug)
+                    ->firstOrFail();
 
             $user = auth()->user();
 
@@ -60,7 +61,8 @@ class SeekerController extends Controller
     {
         if (request()->ajax()) {
 
-            $job  = Job::findBySlug($slug);
+            $job  = Job::whereSlug($slug)
+                    ->firstOrFail();
 
             $user = auth()->user();
 
@@ -91,7 +93,9 @@ class SeekerController extends Controller
     {
         if ( request()->ajax()){
 
-            $job = Job::findBySlug($slug);
+            $job  = Job::whereSlug($slug)
+                    ->firstOrFail();
+
             auth()->user()->savedJobs()->detach($job->id);
         }
     }
@@ -109,7 +113,9 @@ class SeekerController extends Controller
     {
         if ( request()->ajax() )
         {
-            $job = Job::findBySlug($slug);
+            $job  = Job::whereSlug($slug)
+                    ->firstOrFail();
+
 
             auth()->user()->appliedJobs()->detach($job->id);
         }

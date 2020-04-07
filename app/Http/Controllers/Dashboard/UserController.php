@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\DataTables\UsersDataTable;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\UserRequest;
-use App\Models\User;
-use App\Services\UserService;
-use Toastr;
 use Image;
+use Toastr;
+use App\Models\User;
+use App\DataTables\UsersDataTable;
+use App\Http\Requests\UserRequest;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -72,7 +72,7 @@ class UserController extends Controller
     } // End of edit fn
 
 
-    public function update(User $user,UserRequest $request,UserService $service)
+    public function update(User $user,UserRequest $request)
     {
 
         $data = $request->except(['image']);
@@ -84,7 +84,38 @@ class UserController extends Controller
 
         $user->update($data);
 
-        $service->handleUpdateProfile($user,$request);
+        if ( $user->hasCompanyProfile )
+		{
+
+            $user->profile()->update([
+
+                'size'           => request('size'),
+                'specialized_in' => request('specialized_in'),
+                'phone'          => request('phone')
+
+            ]);
+       }
+       
+
+       if ( $user->hasSeekerProfile )
+		{
+            $data = [
+
+                'fullname'   => $request->fullname,
+                'mobile'     => $request->mobile,
+                'position'   => $request->position,
+                'experience' => $request->experience,
+            ];
+
+            if ( $request->hasFile('cv') )
+            {
+                $oldCv = $user->profile->cv;
+                Storage::has($oldCv) ? Storage::delete($oldCv) : '';
+                $data['cv'] = $request->cv->store('cvs');
+            }
+
+            $user->profile()->update($data);
+		}
 
 
         Toastr::success(trans('dashboard.success_updated'));

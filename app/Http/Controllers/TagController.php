@@ -10,15 +10,19 @@ class TagController extends Controller
 {
     public function jobsShow($slug)
     {
-    	$tag = Tag::findBySlug($slug);
-    	$jobs = $tag->jobs()->paginate(10);
+        $tag = Tag::whereSlug($slug)
+               ->firstOrFail();
+
+    	$jobs = $tag->jobs()->with('country','type')->paginate(10);
 
     	return view('frontend.tags.jobs.show',compact('tag','jobs'));
     }
 
     public function postsShow($slug)
     {
-        $tag   = Tag::findBySlug($slug);
+        $tag   = Tag::whereSlug($slug)
+                  ->firstOrFail();
+                  
         $posts = $tag->posts()->with('admin')->paginate(5);
 
         return view('frontend.tags.posts.show',compact('tag','posts'));

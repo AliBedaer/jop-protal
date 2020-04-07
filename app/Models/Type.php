@@ -12,8 +12,7 @@ class Type extends Model
 
     public function jobs()
     {
-   	 	return $this->hasMany(Job::class)
-   	 	             ->with('type:id,name','country:id,name');
-
+   	 	return $this->hasMany(Job::class);
+   	 	             
     }
 }

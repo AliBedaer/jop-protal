@@ -13,6 +13,7 @@ class ContactController extends Controller
     public function index()
     {
         $this->readNotofocations();
+
     	return view('dashboard.contacts.index',[
     		'title'    => 'Contacts Control',
     		'contacts' => Contact::latest()->paginate(5)
@@ -41,7 +42,9 @@ class ContactController extends Controller
         ReplyContactJob::dispatch($contact,$reply);
 
         $contact->update([
+
             'replied_at' => now()
+            
         ]);
 
         Toastr::success('Reply sent!');

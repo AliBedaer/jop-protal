@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Job;
 use App\Models\User;
-use App\Services\UserService;
+use App\Jobs\CanceldEmails;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -18,7 +18,7 @@ class CompanyController extends Controller
 	public function index()
 	{
         
-		$companies = User::companies()->paginate(12);
+		$companies = User::companies()->withCount('jobs')->paginate(12);
     	return view('frontend.companies.index',compact('companies'));
 
 	} // end of index fn 
@@ -30,9 +30,12 @@ class CompanyController extends Controller
         return view('frontend.companies.show',compact('company'));
     }
     
+    /**
+     * Get All Jobs created by user ( Company )
+     */
     public function jobs()
     {
-    	$jobs = auth()->user()->jobs()
+    	$jobs = user()->jobs()
     	       ->paginate(10);
 
     	return view('frontend.companies.jobs',compact('jobs'));
@@ -40,14 +43,18 @@ class CompanyController extends Controller
     } // end of fn 
 
 
-    public function cancelApplicant(Job $job,User $seeker,$companyId,UserService $service)
+    public function cancelApplicant($job_id,$seeker_id,$company_id)
     {
         if ( request()->ajax())
         { 
 
-          $company  = User::findOrFail($companyId);
+          $company  = User::findOrFail($company_id);
+          $seeker   = User::findOrFail($seeker_id);
+          $listing  = Job::findOrFail($job_id); 
 
-          $service->handleCancelApplicant($job,$seeker,$company);
+          $listing->applicants()->detach($seeker);
+
+          dispatch(new CanceldEmails($seeker,$company,$listing));
 
           return response(['canceld'=> true]);
 
@@ -60,7 +67,7 @@ class CompanyController extends Controller
 
     public function notifications()
     {
-        auth()->user()->unreadNotifications->markAsRead();
+        user()->unreadNotifications->markAsRead();
         return view('frontend.notifications.index');
 
     } // end of fn 

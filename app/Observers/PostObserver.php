@@ -12,10 +12,7 @@ use App\Services\PostService;
 class PostObserver
 {
 
-    public function __construct(PostService $service)
-    {
-        $this->service = $service;
-    }
+   
 
     public function creating($post)
     {
@@ -31,6 +28,6 @@ class PostObserver
     public function deleted($post)
     {
         check_file($post->image);
-        $this->service->detachTags($post);
+        $post->tags()->detach($post->tags);
     }
 }

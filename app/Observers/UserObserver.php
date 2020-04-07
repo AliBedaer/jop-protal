@@ -1,48 +1,45 @@
 <?php
 
 namespace App\Observers;
+
 use App\Models\CompanyProfile;
 use App\Models\SeekerProfile;
 use App\Models\User;
 use App\Services\UserService;
 
-
-
-
 class UserObserver
 {
-
-    private $service;
-
-    public function __construct(UserService $userService)
-    {
-      $this->service =  $userService;  
-    }
-
     public function created(User $user)
     {
-       $this->service->handleRole($user);
+        $user->attachRole($user->level);
     }
 
 
 
     public function roleAttached(User $user)
     {
-      $this->service->handleProfiles($user);
+        if ($user->hasRole('seeker')) 
+        {
+            $profile = SeekerProfile::create();
+            $profile->user()->save($user);
+        }
+
+        if ($user->hasRole('company')) 
+        {
+            $profile = CompanyProfile::create();
+            $profile->user()->save($user);
+        }
     }
 
 
     public function deleted(User $user)
     {
-      $this->service->handleDeleteProfiles($user);
+        $user->profile()->delete();
       
-      if ( $user->hasSeekerProfile )
-      {
-        check_file($user->profile->cv);
-      }
-      check_file($user->image);
+        if ($user->hasSeekerProfile) 
+        {
+            check_file($user->profile->cv);
+        }
+        check_file($user->image);
     }
-
-
-    
 }

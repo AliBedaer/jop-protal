@@ -73,9 +73,5 @@ class Admin extends Authenticatable
         return ucfirst($value);
     }
 
-    public function scopeFilterd($q,$ids=[])
-    {
-        return $q->whereIn('id',$ids)->get();
-    }
     
 }

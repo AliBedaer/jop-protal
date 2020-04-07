@@ -22,7 +22,8 @@ class PostController extends Controller
 
     public function show($slug)
     {
-        $post = Post::findBySlug($slug);
+        $post = Post::whereSlug($slug)
+                    ->firstOrFail();
         $next = $post->nextPost;
         $prev = $post->prevPost;
         View::recordView($post);

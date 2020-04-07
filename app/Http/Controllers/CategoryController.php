@@ -9,8 +9,8 @@ class CategoryController extends Controller
 {
     public function show($slug)
     {
-    	$category = Category::findBySlug($slug);
-    	$jobs = $category->jobs()->paginate(10);
+    	$category = Category::whereSlug($slug)->firstOrFail();
+    	$jobs     = $category->jobs()->with('type:id,name','country:id,name')->paginate(10);
     	
     	return view('frontend.categories.show',compact('category','jobs'));
     }

@@ -18,12 +18,11 @@ class WelcomeController extends Controller
 
         return view('welcome',[
 
-        	'jobs'         =>  Job::recentJobs(),
-        	'tags'         =>  Tag::popularTags(),
-          'seekers'      =>  User::recentSeekers(),
-          'componies'    =>  User::topCompanies(),
-          'testimonials' =>  Testimonial::testimonials(), 
-          
+        	'jobs'         =>  Job::with('country','type')->latest()->limit(5)->get(),
+        	'tags'         =>  Tag::withCount('jobs')->orderBy('jobs_count','desc')->get(),
+          'seekers'      =>  User::seekers()->latest()->limit(5)->get(),
+          'componies'    =>  User::companies()->withCount('jobs')->latest()->limit(4)->get(),
+          'testimonials' =>  Testimonial::latest()->limit(5)->get(), 
         ]);
     }
 }

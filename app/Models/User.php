@@ -47,47 +47,29 @@ class User extends Authenticatable
 
     /**
     * Scope to limit users that bring role company
-    * @param mixed $query
-    * @param int $limit --> related to paginataion
+    * @param  $query
+    * @return void
     **/
+
     public function scopeCompanies($query)
     {
-        return $query->whereRoleIs('company')
-                     ->withCount('jobs')
-                     ->latest();
+        return $query->whereRoleIs('company');
+                     
     }
 
 
     /**
     * Scope to limit users that bring role seeker
-    * @param mixed $query
-    * @param int $limit --> related to paginataion
+    * @param  $query
+    * @return void
     **/
+
     public function scopeSeekers($query)
     {
-        return $query->whereRoleIs('seeker')
-                     ->withCount('jobs')
-                     ->latest();
+        return $query->whereRoleIs('seeker');             
     }
 
-
-
-    public function scopeRecentSeekers($q,$limit=5)
-    {
-        return $q->whereRoleIs('seeker')->orderBy('created_at','desc')
-                          ->limit($limit)
-                          ->get();
-    }
-
-
-    public function scopeTopCompanies($q,$limit=4)
-    {
-        return $q->whereRoleIs('company')
-                         ->withCount('jobs')
-                         ->orderBy('jobs_count','desc')
-                         ->limit($limit)
-                         ->get();  
-    }
+   
 
 
     /**
@@ -95,6 +77,7 @@ class User extends Authenticatable
     * @param string $value --> pass 
     * @return void
     */
+    
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = bcrypt($value);
@@ -148,10 +131,8 @@ class User extends Authenticatable
 
     public function jobs()
     {
-        return $this->hasMany(Job::class)
-                ->with('type:id,name','country:id,name')
-                ->withCount('applicants')
-                ->latest();
+        return $this->hasMany(Job::class);
+                
     }
 
     /**

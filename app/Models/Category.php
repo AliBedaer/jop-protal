@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
@@ -21,11 +22,11 @@ class Category extends Model
     	parent::boot();
 
     	static::creating(function($category){
-    		$category->slug = str_slug($category->name);
+    		$category->slug = Str::slug($category->name);
     	});
 
     	static::updating(function($category){
-    		$category->slug = str_slug($category->name);
+    		$category->slug = Str::slug($category->name);
     	});
     }
 
@@ -40,22 +41,7 @@ class Category extends Model
 
    public function jobs()
    {
-   	 return $this->hasMany(Job::class)
-            ->with('type:id,name','country:id,name')
-            ->latest();
+   	 return $this->hasMany(Job::class);
             
-   }
-
-
-   /**
-   * Method to get instance by given slug like FindOrFail but not by Id
-   *
-   * @param string $slug
-   * @return \App\Models|Category $category 
-   */
-
-   public static function findBySlug($slug)
-   {
-    return static::with('jobs')->whereSlug($slug)->firstOrFail();
    }
 }

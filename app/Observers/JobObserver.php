@@ -8,12 +8,7 @@ use App\Services\JobService;
 class JobObserver
 {
 
-	private $service;
-
-	public function __construct(JobService $service)
-	{
-		$this->service = $service;
-	}
+	
 
     public function creating($job)
     {
@@ -29,6 +24,6 @@ class JobObserver
     public function deleted($job)
     {
     	check_file($job->banner);
-    	$this->service->handleDetachTags($job);
+    	$job->tags()->detach($job->tags);
     }
 }

@@ -9,18 +9,10 @@ use App\DataTables\PostsDataTable;
 use App\Models\Post;
 use App\Models\Tag;
 use App\Models\Category;
-use App\Services\PostService;
 use Toastr;
 
 class PostController extends Controller
 {
-
-    private $service;
-
-    public function __construct(PostService $service)
-    {
-        $this->service = $service;
-    }
 
     public function index(PostsDataTable $posts)
     {
@@ -54,7 +46,7 @@ class PostController extends Controller
 
         $post = Post::create($data);
 
-        $this->service->handleTags($post,$request);
+        $post->tags()->sync($request->tags);
 
         Toastr::success(trans('dashboard.success_added'));
 
@@ -98,8 +90,7 @@ class PostController extends Controller
 
         $post->update($data);
 
-        $this->service->handleTags($post,$request);
-
+        $post->tags()->sync($request->tags);
 
         Toastr::success(trans('dashboard.success_update'));
 

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\FrontEnd\JobRequest;
 use App\Models\Job;
-use App\Services\JobService;
 use Illuminate\Http\Request;
 use Toastr;
 
@@ -59,7 +58,7 @@ class JobController extends Controller
 
     } // end of create
 
-    public function store(JobRequest $request,JobService $service)
+    public function store(JobRequest $request)
     {
         $data = $request->except(['banner','tags','skills']);
 
@@ -70,11 +69,15 @@ class JobController extends Controller
 
         $job = auth()->user()->jobs()->create($data);
 
-        $service->handleJobSkillsTags($job,$request);
+        $job->skills()->sync($request->skills);
+
+        $job->tags()->sync($request->tags);
+
 
         Toastr::success('Added!');
 
         return redirect()->route('jobs.show', $job->slug);
+
     } // end of store 
 
 
@@ -90,18 +93,26 @@ class JobController extends Controller
 
         $job->update($data);
 
-        $service->handleJobSkillsTags($job,$request);
+        $job->skills()->sync($request->skills);
+
+        $job->tags()->sync($request->tags);
 
         Toastr::success('updated!');
 
         return back();
+
     } // end of update 
 
     public function show($slug)
     {
-        $job = Job::findBySlug($slug);
+        $job = Job::with('country','user','type','skills','tags','category')
+                   ->whereSlug($slug)
+                   ->firstOrFail();
 
-        $r_jobs = $job->relatedJobs(); // Stand for related jobs
+        $r_jobs = Job::with('country')
+                     ->where('title','like','%'. $job->title .'%')
+                     ->where('id','!=',$job->id)
+                     ->get(); 
 
         return view('frontend.jobs.show', compact('job', 'r_jobs'));
 

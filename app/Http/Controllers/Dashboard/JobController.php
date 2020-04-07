@@ -4,15 +4,15 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use  App\Http\Requests\JobRequest;
-use App\DataTables\JobsDataTable;
-use App\Http\Controllers\Controller;
-use App\Models\Job;
-use App\Models\Skill;
-use App\Models\Tag;
-use App\Services\JobService;
-use Storage;
 use Toastr;
+use Storage;
+use App\Models\Job;
+use App\Models\Tag;
+use App\Models\Skill;
+use Illuminate\Support\Str;
+use App\DataTables\JobsDataTable;
+use  App\Http\Requests\JobRequest;
+use App\Http\Controllers\Controller;
 
 class JobController extends Controller
 {
@@ -48,7 +48,8 @@ class JobController extends Controller
 
         $job = Job::create($data);
 
-        $service->handleJobSkillsTags($job,$request);
+        $job->skills()->sync($request->skills);
+        $job->tags()->sync($request->tags);
 
 
         Toastr::success(trans('success_added'));
@@ -87,7 +88,7 @@ class JobController extends Controller
 
 
 
-    public function update(Job $job,JobRequest $request,JobService $service)
+    public function update(Job $job,JobRequest $request)
     {
         
         $data = $request->except(['tags','skills','banner']);
@@ -99,8 +100,8 @@ class JobController extends Controller
 
         $job->update($data);
 
-        $service->handleJobSkillsTags($job,$request);
-
+        $job->skills()->sync($request->skills);
+        $job->tags()->sync($request->tags);
 
         return back();
 
@@ -129,7 +130,21 @@ class JobController extends Controller
 
     public function dublicate(Job $job)
     {
-        $new_job = $job->dublicateJob(); 
+        $new_job = $job->replicate(['banner']);
+        $new_job->title = $this->title . '-(dublicated)';
+        $new_job->slug = Str::slug($new_job->title);
+        $new_job->push();
+
+        foreach ( $job->skills as $skill )
+        {
+            $new_job->skills()->attach($skill);
+        }
+
+        foreach ( $job->tags as $tag )
+        {
+            $new_job->tags()->attach($tag);
+        }
+
         Toastr::success('Record Copied Successfully!');
         return redirect(route('dashboard.jobs.edit',$new_job->id));
     }

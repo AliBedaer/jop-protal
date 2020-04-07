@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
 class Skill extends Model
@@ -15,24 +16,19 @@ class Skill extends Model
     	parent::boot();
 
     	static::creating(function($skill){
-    		$skill->slug = str_slug($skill->name);
+    		$skill->slug = Str::slug($skill->name);
     	});
 
     	static::updating(function($skill){
-    		$skill->slug = str_slug($skill->name);
+    		$skill->slug = Str::slug($skill->name);
     	});
     }
 
     public function jobs()
     {
-    	return $this->belongsToMany(Job::class)
-               ->with('type:id,name','country:id,name')
-               ->latest();
+    	return $this->belongsToMany(Job::class);
     }
 
 
-    public static function findBySlug($slug)
-    {
-        return static::with('jobs')->whereSlug($slug)->firstOrFail();
-    }
+   
 }

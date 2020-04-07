@@ -151,7 +151,7 @@ if ( !function_exists('create_unique_slug') )
 	function create_unique_slug($title,$modelName)
 	{
 
-		$slug = str_slug($title);
+		$slug = Str::slug($title);
 
 		$original = $slug;
 

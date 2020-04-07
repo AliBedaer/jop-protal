@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\FrontEnd\UserRequest;
-use App\Models\User;
-use App\Rules\MatchOldPassword;
-use App\Services\UserService;
-use Illuminate\Http\Request;
-use Storage;
 use Toastr;
-
+use App\Models\User;
+use Illuminate\Http\Request;
+use App\Rules\MatchOldPassword;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\FrontEnd\UserRequest;
 class ProfileController extends Controller
 {
 	public function __construct()
@@ -26,7 +24,7 @@ class ProfileController extends Controller
 
 
 
-    public function updateProfile(UserRequest $request,UserService $service)
+    public function updateProfile(UserRequest $request)
     {
         $data = $request->except(['image']);
 
@@ -39,7 +37,38 @@ class ProfileController extends Controller
 
         $user->update($data);
 
-        $service->handleUpdateProfile($user,$request);
+        if ( $user->hasCompanyProfile )
+		{
+
+            $user->profile()->update([
+
+                'size'           => request('size'),
+                'specialized_in' => request('specialized_in'),
+                'phone'          => request('phone')
+
+            ]);
+       }
+       
+
+       if ( $user->hasSeekerProfile )
+		{
+            $data = [
+
+                'fullname'   => $request->fullname,
+                'mobile'     => $request->mobile,
+                'position'   => $request->position,
+                'experience' => $request->experience,
+            ];
+
+            if ( $request->hasFile('cv') )
+            {
+                $oldCv = $user->profile->cv;
+                Storage::has($oldCv) ? Storage::delete($oldCv) : '';
+                $data['cv'] = $request->cv->store('cvs');
+            }
+
+            $user->profile()->update($data);
+		}
 
 
         Toastr::success('Profile updated!');
