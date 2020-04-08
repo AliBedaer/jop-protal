@@ -11,10 +11,10 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::with('admin')->when(request()->has('keyword'),function($q){
+        $posts = Post::with('admin')->withCount('views')->when(request()->has('keyword'),function($q){
             return $q->where('title','like','%'. request('keyword') .'%')
                      ->orWhere('body','like','%'. request('keyword') .'%');
-        })->latest()->paginate(5);
+        })->latest()->paginate(10);
         $recent_posts = Post::latest()->limit(5)->get();
     	return view('frontend.posts.index',compact('posts','recent_posts'));
     }
@@ -22,7 +22,7 @@ class PostController extends Controller
 
     public function show($slug)
     {
-        $post = Post::whereSlug($slug)
+        $post = Post::withCount('views')->whereSlug($slug)
                     ->firstOrFail();
         $next = $post->nextPost;
         $prev = $post->prevPost;

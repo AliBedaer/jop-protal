@@ -44,7 +44,7 @@
                             </ul>
 
                             <ul class="blog-info-link">
-                                <li><a href="#"><i class="fa fa-eye"></i> {{ $post->viewsCount() }}</a></li>
+                                <li><a href="#"><i class="fa fa-eye"></i> {{ $post->views_count }}</a></li>
                             </ul>
                         </div>
                     </article>

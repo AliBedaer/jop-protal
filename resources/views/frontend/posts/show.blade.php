@@ -25,7 +25,7 @@
                          <ul class="blog-info-link mt-3 mb-4">
                              <li><a href="#"><i class="fa fa-user"></i> {{ $post->admin->name }}</a></li>
                              <li><a href="#"><i class="fa fa-clock-o"></i> {{ $post->readTime }} Read</a></li>
-                             <li><a href="#"><i class="fa fa-eye"></i> {{ $post->viewsCount() }}</a></li>
+                             <li><a href="#"><i class="fa fa-eye"></i> {{ $post->views_count }}</a></li>
 
                          </ul>
                          {!! $post->body !!}
