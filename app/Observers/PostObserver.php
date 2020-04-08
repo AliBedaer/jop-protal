@@ -28,6 +28,7 @@ class PostObserver
     public function deleted($post)
     {
         check_file($post->image);
-        $post->tags()->detach($post->tags);
+        $post->tags()->detach();
+        $post->views()->delete();
     }
 }

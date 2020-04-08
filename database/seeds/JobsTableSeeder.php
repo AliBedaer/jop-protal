@@ -11,7 +11,7 @@ class JobsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Models\Job::class,500)->create()->each(function($job){
+        factory(\App\Models\Job::class,20)->create()->each(function($job){
             $job->skills()->sync([1,2,3]);
             $job->tags()->sync([1,2,3]);
          });

@@ -24,6 +24,6 @@ class JobObserver
     public function deleted($job)
     {
     	check_file($job->banner);
-    	$job->tags()->detach($job->tags);
+    	$job->tags()->detach();
     }
 }

@@ -15,6 +15,7 @@ class PostController extends Controller
             return $q->where('title','like','%'. request('keyword') .'%')
                      ->orWhere('body','like','%'. request('keyword') .'%');
         })->latest()->paginate(10);
+        
         $recent_posts = Post::latest()->limit(5)->get();
     	return view('frontend.posts.index',compact('posts','recent_posts'));
     }

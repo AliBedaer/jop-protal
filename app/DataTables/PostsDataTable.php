@@ -24,15 +24,16 @@ class PostsDataTable extends DataTable
             ->addColumn('edit', 'dashboard.posts.btns.edit')
             ->addColumn('delete', 'dashboard.posts.btns.delete')
             ->addColumn('checkbox', 'dashboard.posts.btns.checkbox')
+            ->addColumn('views', 'dashboard.posts.btns.views_count')
             ->rawColumns([
-                'edit','delete','checkbox'
+                'views','edit','delete','checkbox'
             ]);
     }
 
     
     public function query()
     {
-         return Post::query();
+         return Post::query()->with('views')->select('posts.*');
     }
 
 
@@ -119,6 +120,12 @@ class PostsDataTable extends DataTable
                 "name" => "slug",
                 'data' => 'slug',
                 'title' => trans('dashboard.slug'),
+            ],
+
+            [
+                "name" => "views",
+                'data' => 'views',
+                'title' => 'Views',
             ],
             
             [
