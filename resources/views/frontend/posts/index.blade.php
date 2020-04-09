@@ -89,7 +89,6 @@
 
                         @forelse( $recent_posts as $post )
                         <div class="media post_item">
-                            <img class="img-fluid" src="{{ $post->imagePath }}" alt="post">
                             <div class="media-body">
                                 <a href="{{ $post->showUrl }}">
                                     <h3>{{ $post->title }}</h3>

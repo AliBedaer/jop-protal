@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
 use Illuminate\Notifications\Notifiable;
+use Laratrust\Traits\LaratrustUserTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laratrust\Traits\LaratrustUserTrait;
 
 class User extends Authenticatable
 {
@@ -95,13 +96,13 @@ class User extends Authenticatable
 
     public function getSeekerShowAttribute()
     {
-        return route('seekers.show',['id' => $this->id,'slug' => str_slug($this->name)]);
+        return route('seekers.show',['id' => $this->id,'slug' => Str::slug($this->name)]);
     }
 
 
     public function getCompanyShowAttribute()
     {
-        return route('companies.show',['id' => $this->id,'slug' => str_slug($this->name)]);
+        return route('companies.show',['id' => $this->id,'slug' => Str::slug($this->name)]);
     }
 
     /**

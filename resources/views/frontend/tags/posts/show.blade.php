@@ -26,7 +26,7 @@
                         </span>
                         <span class="read_time text-muted small">
                             <i class="fa fa-eye"></i>
-                            {{ $post->viewsCount() }} |
+                            {{ $post->views_count }} Views | 
                         </span>
                         <span class="read_time text-muted small">
                             Added By  {{  $post->admin->name  }}

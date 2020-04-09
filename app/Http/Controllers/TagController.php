@@ -23,7 +23,7 @@ class TagController extends Controller
         $tag   = Tag::whereSlug($slug)
                   ->firstOrFail();
                   
-        $posts = $tag->posts()->with('admin')->paginate(5);
+        $posts = $tag->posts()->withCount('views')->with('admin')->paginate(5);
 
         return view('frontend.tags.posts.show',compact('tag','posts'));
     }
