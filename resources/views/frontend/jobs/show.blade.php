@@ -40,17 +40,7 @@
                         <div class="jobs_right">
                             <div class="apply_now">
                                 @role('seeker')
-
-                                <a data-url="{{ route('jobs.show',$job->slug) }}"
-                                    class="heart_mark {{ auth()->user()->hasSavedJob($job) ? 'bg-green' : '' }}"
-                                    href="{{ route('jobs.save',$job->slug) }}"> <i class="ti-heart"></i> </a>
-
-                                <a data-url="{{ route('jobs.apply',$job->slug) }}"
-                                    href="{{ route('jobs.apply',$job->slug) }}"
-                                    class="boxed-btn3 apply_job {{ auth()->user()->hasAppliedJob($job) ? 'bg-blue' :''  }}">
-                                    {{ auth()->user()->hasAppliedJob($job) ? 'Applied' : 'Apply Now' }}
-                                </a>
-
+                                @include('frontend.jobs._buttons')
                                 @endrole
                                 @hasRoleAndOwns('company',$job)
                                 <a href="{{ route('jobs.edit',$job->id) }}" class="btn">
@@ -98,17 +88,14 @@
                                 <th scope="row">{{ $seeker->id }}</th>
                                 <td><a href="{{ $seeker->showUrl }}">{{ $seeker->name }}</a></td>
                                 <td>
-                                 <form class="d-inline-block" method="POST"
-                                 action="{{ route('companies.cancel',['job' => $job->id,'seeker' => $seeker->id,'company' => $job->user->id]) }}"
-                                 >
-                                 @csrf
-                                 @method('DELETE')
-                                    <a 
-                                        href="#"
-                                        class="btn btn-danger text-white cancel_applicant">
-                                        <i class="fa fa-trash"></i>
-                                        Cancel
-                                    </a>
+                                    <form class="d-inline-block" method="POST"
+                                        action="{{ route('companies.cancel',['job' => $job->id,'seeker' => $seeker->id,'company' => $job->user->id]) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <a href="#" class="btn btn-danger text-white cancel_applicant">
+                                            <i class="fa fa-trash"></i>
+                                            Cancel
+                                        </a>
                                     </form>
                                 </td>
 
@@ -232,7 +219,7 @@
 <script src="{{ asset('js/share.js') }}"></script>
 
 <script>
-  ajax_delete('.cancel_applicant')
+ajax_delete('.cancel_applicant')
 </script>
 
 @endpush

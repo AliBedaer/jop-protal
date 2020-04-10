@@ -23,6 +23,7 @@ class HomeController extends Controller
         $typechart       = draw_chart(TypeChart::class,Type::latest()->pluck('name'),Type::withCount('jobs')->latest()->pluck('jobs_count'),'pie');
 
         /*** Prepare data for draw user register chart by month in current year ***/
+        
         $data=[];
 
         foreach( get_months() as $key => $value )

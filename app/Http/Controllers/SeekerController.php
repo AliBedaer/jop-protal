@@ -84,7 +84,7 @@ class SeekerController extends Controller
 
     public function savedJobs()
     {
-        $jobs = auth()->user()->savedJobs()->latest()->paginate(5);
+        $jobs = auth()->user()->savedJobs()->with('user')->latest()->paginate(5);
 
         return view('frontend.seekers.saved', compact('jobs'));
     }
@@ -103,7 +103,7 @@ class SeekerController extends Controller
 
     public function AppliedJobs()
     {
-        $jobs = auth()->user()->appliedJobs()->latest()->paginate(5);
+        $jobs = auth()->user()->appliedJobs()->with('user')->latest()->paginate(5);
 
         return view('frontend.seekers.applied', compact('jobs'));
 

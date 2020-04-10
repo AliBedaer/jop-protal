@@ -21,7 +21,7 @@ class WelcomeController extends Controller
         	'jobs'         =>  Job::with('country','type')->latest()->limit(5)->get(),
         	'tags'         =>  Tag::withCount('jobs')->orderBy('jobs_count','desc')->get(),
           'seekers'      =>  User::seekers()->latest()->limit(5)->get(),
-          'componies'    =>  User::companies()->withCount('jobs')->latest()->limit(4)->get(),
+          'componies'    =>  User::companies()->withCount('jobs')->orderBy('jobs_count','desc')->limit(4)->get(),
           'testimonials' =>  Testimonial::latest()->limit(5)->get(), 
         ]);
     }
